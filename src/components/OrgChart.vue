@@ -108,7 +108,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section id="organisation" class="grid-paper relative py-16 sm:py-24 lg:py-28">
+  <section id="organisation" class="grid-paper relative pb-10 pt-16 sm:pb-14 sm:pt-24 lg:pb-16 lg:pt-28">
     <div
       class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,white,transparent_20%,transparent_80%,white)]"
     ></div>

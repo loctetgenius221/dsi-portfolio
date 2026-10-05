@@ -35,7 +35,7 @@ function toggle(i: number) {
 </script>
 
 <template>
-  <section id="contact" class="py-16 sm:py-24 lg:py-28">
+  <section id="contact" class="pb-16 pt-10 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
     <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-4">
         <div class="lg:sticky lg:top-10">

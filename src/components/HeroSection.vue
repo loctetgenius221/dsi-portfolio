@@ -50,7 +50,7 @@ function toggle(id: string) {
         </div>
       </header>
 
-      <div class="grid items-center gap-8 pb-8 pt-6 lg:grid-cols-[1fr_1fr] lg:pb-14 lg:pt-10">
+      <div class="grid items-center gap-8 pb-6 pt-6 lg:grid-cols-[1fr_1fr] lg:pb-8 lg:pt-10">
         <div>
           <h1 class="display text-[clamp(2rem,3.6vw,3.4rem)] text-green">
             La DSI conçoit, pilote et sécurise le numérique du Ministère.

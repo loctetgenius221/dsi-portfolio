@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Newsreader", Georgia, serif;
+  --font-hand: "Caveat", "Segoe Print", cursive;
+  --font-sans: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+
+  /* Les trois couleurs institutionnelles */
+  --color-green: #009454;
+  --color-green-deep: #00763f; /* variante foncée du vert : texte blanc ≥ 4,5:1 (WCAG AA) */
+  --color-yellow: #ffcc34;
+  --color-red: #f43438;
+
+  /* Neutres uniquement */
+  --color-paper: #ffffff;
+  --color-paper-2: #f6f6f4;
+  --color-ink: #141414;
+  --color-ink-soft: #5a5a5a;
+  --color-rule: #dcdcd8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-red);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer components {
+  /* Motifs inspirés du tissage mandjak et du bogolan : losanges et bandes, aux 3 couleurs du site */
+  .woven-band {
+    height: 16px;
+    background-color: var(--color-ink);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16' viewBox='0 0 32 16'%3E%3Cpolygon points='8,1 15,8 8,15 1,8' fill='%23009454'/%3E%3Cpolygon points='24,1 31,8 24,15 17,8' fill='%23ffcc34'/%3E%3Crect x='6.5' y='6.5' width='3' height='3' fill='%23f43438'/%3E%3Crect x='22.5' y='6.5' width='3' height='3' fill='%23141414'/%3E%3C/svg%3E");
+    background-size: 32px 16px;
+    background-repeat: repeat-x;
+  }
+  .pattern-lozenge {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56' fill='none' stroke='%23ffffff' stroke-opacity='.16' stroke-width='1.5'%3E%3Cpolygon points='28,2 54,28 28,54 2,28'/%3E%3Cpolygon points='28,16 40,28 28,40 16,28'/%3E%3C/svg%3E");
+    background-size: 56px 56px;
+  }
+
+  /* Bordure animée (inspirée des « moving border » d'Aceternity) */
+  .moving-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .moving-border::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    border-radius: inherit;
+    background: conic-gradient(from var(--angle), transparent 0 70%, #ffcc34 82%, #f43438 92%, transparent 100%);
+    animation: spin-angle 5s linear infinite;
+  }
+  .moving-border::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--mb-bg, #009454);
+  }
+  @keyframes spin-angle {
+    to {
+      --angle: 360deg;
+    }
+  }
+  @keyframes float-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  .float-slow {
+    animation: float-y 6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .moving-border::before,
+    .float-slow {
+      animation: none;
+    }
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 450;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    font-variation-settings: "opsz" 48;
+  }
+  .wrap {
+    margin-inline: auto;
+    width: min(100% - 3rem, 82rem);
+  }
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, rgb(0 148 84 / 0.09) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(0 148 84 / 0.09) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+  .h2 {
+    font-family: var(--font-display);
+    font-weight: 450;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    font-size: clamp(1.8rem, 3vw, 2.75rem);
+    color: var(--color-green);
+  }
+}
+
+/* Annotation manuscrite : visible seulement avec une souris, dès 1024 px (le texte parle de survol).
+   Hors des couches CSS pour l'emporter sur les utilitaires `flex` / `block` de Tailwind. */
+.hint-hover {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 1024px) {
+  .hint-hover {
+    display: flex;
+  }
+}

@@ -8,7 +8,8 @@
   /* Les trois couleurs institutionnelles */
   --color-green: #009454;
   --color-green-deep: #00763f; /* variante foncée du vert : texte blanc ≥ 4,5:1 (WCAG AA) */
-  --color-yellow: #ffcc34;
+  /* --color-yellow: #ffcc34; */
+  --color-yellow: #EAB308;
   --color-red: #f43438;
 
   /* Neutres uniquement */

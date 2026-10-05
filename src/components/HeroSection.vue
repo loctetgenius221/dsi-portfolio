@@ -62,7 +62,7 @@ function toggle(id: string) {
           <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href="#contact"
-              class="flex min-h-12 w-full items-center justify-center rounded-full border-2 border-ink bg-yellow px-6 py-3 text-center font-semibold text-ink shadow-[4px_4px_0_var(--color-ink)] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-ink)] sm:inline-flex sm:w-auto"
+              class="flex min-h-12 w-full items-center justify-center rounded-full border-2 border-ink bg-green px-6 py-3 text-center font-semibold text-paper shadow-[4px_4px_0_var(--color-ink)] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-ink)] sm:inline-flex sm:w-auto"
               >Trouver mon interlocuteur</a
             >
             <a
@@ -116,7 +116,6 @@ function toggle(id: string) {
           </div>
         </div>
       </div>
-
     </div>
   </section>
 </template>

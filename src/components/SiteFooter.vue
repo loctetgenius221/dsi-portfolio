@@ -6,7 +6,7 @@
         <div class="flex items-center gap-4 pt-6 text-sm leading-relaxed">
           <img
             src="/images/logo-fp.png"
-            class="w-12"
+            class="w-13"
             alt="Logo du Ministère de la Fonction publique"
           />
           <p class="mt-3">

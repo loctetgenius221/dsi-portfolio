@@ -14,7 +14,7 @@ import SiteFooter from '@/components/SiteFooter.vue'
 <template>
   <main>
     <HeroSection />
-    <MarqueeBand />
+    <!-- <MarqueeBand /> -->
     <MandateSection />
     <PhotoBand />
     <MissionsIndex />

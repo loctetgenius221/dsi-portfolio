@@ -7,6 +7,7 @@ import {
   IconBulb,
   IconClipboardCheck,
   IconDatabase,
+  IconHelpCircle,
   IconMinus,
   IconPlus,
   IconShieldCheck,
@@ -25,8 +26,6 @@ const iconOf: Record<string, Component> = {
   admin: IconClipboardCheck,
 }
 
-const ENTRY_POINT = 'services'
-
 // Une seule réponse ouverte à la fois ; la première (le support) l'est d'emblée.
 const open = ref<number | null>(0)
 function toggle(i: number) {
@@ -37,17 +36,17 @@ function toggle(i: number) {
 <template>
   <section id="contact" class="pb-16 pt-10 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
     <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-16">
-      <div class="lg:col-span-4">
+      <div v-reveal class="lg:col-span-4">
         <div class="lg:sticky lg:top-10">
           <h2 class="h2">Qui contacter pour quoi ?</h2>
           <p class="mt-5 max-w-sm leading-relaxed text-ink-soft">
-            Choisissez la situation qui vous ressemble : la réponse indique l'unité concernée et la personne à joindre.
+            Sélectionnez votre besoin : la réponse indique l'unité compétente et son responsable.
           </p>
         </div>
       </div>
 
       <div class="min-w-0 lg:col-span-8">
-        <ul class="border-t-2 border-ink">
+        <ul v-reveal="'stagger'" class="border-t-2 border-ink">
           <li v-for="(n, i) in needs" :key="n.label" class="border-b border-rule">
             <h3>
               <button
@@ -62,12 +61,12 @@ function toggle(i: number) {
                   class="grid h-12 w-12 shrink-0 place-items-center rounded-full border-2 border-green transition-colors duration-300 sm:h-14 sm:w-14"
                   :class="open === i ? 'bg-green text-white' : 'bg-white text-green'"
                 >
-                  <component :is="iconOf[n.unitId]" :size="26" :stroke="1.5" aria-hidden="true" />
+                  <component :is="n.fallback ? IconHelpCircle : iconOf[n.unitId]" :size="26" :stroke="1.5" aria-hidden="true" />
                 </span>
                 <span class="min-w-0 flex-1">
                   <span class="display block text-[1.2rem] leading-snug text-ink sm:text-[1.45rem]">{{ n.label }}</span>
                   <span
-                    v-if="n.unitId === ENTRY_POINT"
+                    v-if="n.fallback"
                     class="mt-1.5 inline-block border-2 border-ink bg-yellow px-2 py-0.5 text-[0.75rem] font-bold leading-tight"
                     >Premier point d'entrée</span
                   >

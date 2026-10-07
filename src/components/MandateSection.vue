@@ -4,7 +4,7 @@ import type { Component } from 'vue'
 import { IconArrowsExchange, IconBolt, IconTrendingUp } from '@tabler/icons-vue'
 import PhotoFrame from './PhotoFrame.vue'
 
-// Une icône Tabler par résultat (même famille que les missions)
+// Une icône Tabler par engagement (même famille que les missions)
 const iconOf: Record<string, Component> = {
   steps: IconBolt,
   network: IconArrowsExchange,
@@ -31,9 +31,13 @@ const iconOf: Record<string, Component> = {
         </PhotoFrame>
       </div>
 
-      <div class="min-w-0">
-        <h2 class="h2">Trois résultats à tenir : productivité, qualité, efficience.</h2>
-        <ol class="mt-8 border-t-2 border-ink">
+      <div v-reveal class="min-w-0">
+        <h2 class="h2">Trois engagements : productivité, qualité et efficience.</h2>
+        <p class="mt-5 max-w-xl leading-relaxed text-ink-soft">
+          Ces engagements fondent l'action de la DSI, telle que la définit le texte d'organisation
+          du Ministère.
+        </p>
+        <ol v-reveal="'stagger'" class="mt-8 border-t-2 border-ink">
           <li
             v-for="r in results"
             :key="r.title"

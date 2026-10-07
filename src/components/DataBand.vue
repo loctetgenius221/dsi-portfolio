@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { IconDatabase } from '@tabler/icons-vue'
+import { IconShieldCheck } from '@tabler/icons-vue'
 import PhotoFrame from './PhotoFrame.vue'
 
+// Sécurité de l'information : la section présente la mission et le partage des
+// responsabilités, sans décrire les systèmes, leur emplacement ni leur architecture.
 const attributes = [
   { t: 'Qualité', c: 'bg-green' },
   { t: 'Fiabilité', c: 'bg-yellow' },
@@ -24,21 +26,20 @@ const attributes = [
           <span
             class="absolute -bottom-8 right-3 grid h-28 w-28 place-items-center rounded-full border-2 border-ink bg-white text-ink lg:-right-8"
           >
-            <IconDatabase size="52" stroke="1.4" aria-hidden="true" />
+            <IconShieldCheck size="52" stroke="1.4" aria-hidden="true" />
           </span>
         </PhotoFrame>
       </div>
-      <div class="lg:col-span-7">
+      <div v-reveal class="lg:col-span-7">
         <p class="mb-4 inline-block border-2 border-ink bg-white px-3 py-1 text-sm font-bold">
-          Une responsabilité à part
+          Données RH de l'État
         </p>
         <h2 class="display text-[clamp(1.9rem,3.4vw,3.1rem)] text-paper">
-          La base de données consolidée des agents de l'État est pilotée par la DSI.
+          Des données RH fiables, protégées et bien gouvernées.
         </h2>
         <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink">
-          Elle regroupe les agents de l'État dont la carrière est administrée selon la
-          réglementation en vigueur. La DSI garantit aussi la gouvernance numérique du SIRH et un
-          réseau d'échange inter-systèmes sécurisé.
+          La DSI veille à la qualité, à la fiabilité, à la sécurité et à la conformité des données
+          RH, en lien avec les directions métiers.
         </p>
         <ul class="mt-9 flex flex-wrap gap-3">
           <li
@@ -49,6 +50,27 @@ const attributes = [
             <span class="h-4 w-4 rounded-full border-2 border-ink" :class="a.c"></span>{{ a.t }}
           </li>
         </ul>
+
+        <!-- Gouvernance des données : qui est responsable de quoi (retours du client) -->
+        <div class="mt-10">
+          <h3 class="text-[1.2rem] font-bold leading-snug text-white">
+            Gouvernance des données : qui est responsable de quoi ?
+          </h3>
+          <dl class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="border-2 border-ink bg-white p-5">
+              <dt class="display text-[1.3rem] leading-tight">La DSI</dt>
+              <dd class="mt-2 leading-snug text-ink-soft">
+                Responsable de la sécurité technique des données et des systèmes qui les hébergent.
+              </dd>
+            </div>
+            <div class="border-2 border-ink bg-white p-5">
+              <dt class="display text-[1.3rem] leading-tight">Les directions métiers</dt>
+              <dd class="mt-2 leading-snug text-ink-soft">
+                RH, Finances, etc. : propriétaires et responsables du contenu de leurs données.
+              </dd>
+            </div>
+          </dl>
+        </div>
       </div>
     </div>
   </section>

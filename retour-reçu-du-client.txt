@@ -1,0 +1,107 @@
+Voici mes principales remarques et propositions :
+
+1- Identité des responsables: mettre les bons contacts des responsables
+
+2- Organisation institutionnelle: Vérifier la concordance avec le texte d’organisation applicable. Si cette structure correspond à une évolution envisagée, afficher clairement « Organisation cible proposée ».
+
+Pour la rubrique « Organisation », je recommande particulièrement les ajustements suivants :
+
+* Rendre les fiches immédiatement visibles après sélection. Elles se trouvent sous l’organigramme et peuvent passer inaperçues. Un panneau latéral sur ordinateur et une fiche dépliable sur téléphone faciliteraient la consultation.
+* Mieux distinguer les niveaux hiérarchiques : Secrétariat général, Direction, divisions et bureaux, avec des liens visuels sans ambiguïté.
+* Enrichir chaque fiche avec la mission de l’unité, ses principales responsabilités, ses bureaux, les services rendus et son contact fonctionnel.
+* Prévoir une version verticale pour mobile. Les six cartes alignées sur ordinateur nécessitent une adaptation spécifique aux petits écrans.
+* Ajouter une option « Télécharger l’organigramme », datée et conforme à la version validée.
+
+Sur le fond, la DSI gagnerait à mieux mettre en avant la simplification des procédures avant leur digitalisation, la conduite du changement, la qualité du support et la mesure des résultats. La gouvernance des données devrait aussi préciser l’articulation entre la responsabilité technique de la DSI et les responsabilités des directions métiers.
+
+Pour donner au site une véritable dimension de portfolio, une rubrique pourrait présenter GIRAFE, E-carrière, CAP, CRCE, Pointel et les projets d’interopérabilité, après validation des informations publiables. Pour chaque projet, quelques éléments suffisent : problème traité, solution apportée, public concerné, état d’avancement et impact mesuré.
+
+Enfin, quelques ajustements éditoriaux renforceraient la cohérence :
+
+* Remplacer « Trois résultats à tenir » par « Trois engagements : productivité, qualité et efficience ».
+* Harmoniser « transformation numérique » et « transformation digitale ».
+* Employer « Support aux utilisateurs » au singulier, sous réserve de l’intitulé officiel.
+* Harmoniser les consignes « Survolez une couche » et « Sélectionnez une couche », en privilégiant une interaction également utilisable au toucher et au clavier.
+
+Je prioriserais la validation de l’organigramme et des coordonnées, puis l’ajout des réalisations et la clarification du support. La charte graphique peut être conservée et affinée.
+
+Cette revue porte sur le contenu et les interactions observées sur ordinateur ; l’affichage mobile, les performances et l’accessibilité restent à tester spécifiquement.
+
+1. Ergonomie et Interface (Rubrique « Organisation »)
+L'objectif est d'améliorer l'expérience utilisateur (UX) pour que l'information soit accessible en un coup d'œil, quel que soit l'écran.
+* Visibilité des fiches : Actuellement, lorsqu'un utilisateur clique sur un élément de l'organigramme, la fiche de détails apparaît tout en bas de la page. C'est un problème (l'utilisateur doit faire défiler l'écran pour la voir).
+	• Solution PC : Ouvrir un volet latéral (side panel) qui glisse depuis le côté.
+	• Solution Mobile : Ouvrir une fiche pop-up ou un accordéon dépliable sous l'élément cliqué.
+* Hiérarchie visuelle : L'organigramme actuel manque de clarté entre les structures (SG, Directions, Divisions, Bureaux). Il faut renforcer les contrastes, utiliser des codes couleur ou des lignes de connexion (liens visuels) plus nettes pour comprendre immédiatement "qui dépend de qui".
+* Contenu des fiches : Une simple liste de noms ne suffit pas. Chaque fiche d'unité doit être enrichie avec 5 informations clés : sa mission, ses responsabilités, ses sous-bureaux, les services rendus à l'utilisateur, et une adresse email/téléphone générique (contact fonctionnel).
+* Adaptation mobile (Responsive) : Une ligne de 6 cartes côte à côte fonctionne sur un grand écran, mais est illisible sur smartphone. Il faut empiler ces cartes verticalement sur mobile.
+* Téléchargement : Ajouter un bouton pour télécharger l'organigramme en PDF. Ce document doit impérativement comporter une date de mise à jour pour garantir sa validité juridique ou administrative.
+2. Évolution du Fond (Le message de la DSI)
+Il s'agit ici de valoriser le rôle stratégique de la Direction des Systèmes d'Information (DSI). Elle ne doit pas être vue comme un simple fournisseur de serveurs ou d'ordinateurs, mais comme un partenaire de la modernisation.
+* Simplification avant digitalisation : Le site doit montrer que la DSI ne se contente pas de mettre en ligne des formulaires complexes. Elle simplifie d'abord les démarches administratives, puis les numérise.
+* Humain et Qualité : Mettre l'accent sur l'accompagnement des agents (conduite du changement), la qualité de l'assistance technique et l'évaluation de la performance (les résultats mesurés).
+* Gouvernance des données : Clarifier une frontière souvent floue : la DSI est responsable de la sécurité technique des données (les serveurs, le code), tandis que les directions métiers (RH, Finances, etc.) restent propriétaires et responsables du contenu de leurs données.
+3. Création du Portfolio (Mettre en avant les projets clés)
+Pour donner de la crédibilité à la DSI, le site doit fonctionner comme une vitrine de ses réalisations (GIRAFE, E-carrière, CAP, etc.). Pour éviter les longs textes techniques, chaque projet doit adopter une structure courte et standardisée (Fiche Projet) :
+1. Problème : Quelle était la difficulté au départ ?
+2. Solution : Qu'est-ce que l'application a changé ?
+3. Public : À qui cela s'adresse-t-it ? (les citoyens ? les agents ?)
+4. Avancement : Est-ce en phase de test ou déjà déployé ?
+5. Impact : Chiffres clés (ex: gain de temps, nombre de dossiers traités).
+Note : Cette publication nécessite l'accord préalable de la hiérarchie sur ce qui peut être rendu public.
+4. Ajustements Éditoriaux et Cohérence (Le vocabulaire)
+Ces corrections harmonisent le ton du site et suppriment les maladresses textuelles :
+* « Engagement » plutôt que « Résultat » : Le terme « Trois résultats à tenir » sonne comme une contrainte interne subie. « Trois engagements : productivité, qualité et efficience » montre une posture volontaire et orientée vers l'utilisateur.
+* Uniformisation des termes : Choisir une fois pour toutes entre « transformation numérique » et « transformation digitale » pour éviter de donner l'impression que le site a été écrit par plusieurs personnes sans coordination.
+* « Support aux utilisateurs » : Mettre le mot "Support" au singulier (sauf si l'organigramme officiel impose le pluriel).
+* Accessibilité et tactile : Les consignes textuelles comme « Survolez une couche » ne fonctionnent pas sur un smartphone (on ne peut pas survoler avec un doigt) ni pour une personne utilisant un clavier. Il faut standardiser l'instruction (ex: « Sélectionnez une couche ») pour englober le clic, le toucher tactile et la navigation au clavier.
+5. Feuille de route (Priorisation)
+Pour ne pas s'éparpiller, le texte conseille de procéder par étapes :
+1. Priorité 1 : Valider l'exactitude de l'organigramme et les coordonnées des contacts (le cœur de l'information).
+2. Priorité 2 : Intégrer les projets du portfolio et clarifier les modalités d'assistance (le support).
+3. En option/Plus tard : Peaufiner le design visuel (charte graphique) qui est déjà jugé satisfaisant.
+Rappel de vigilance final : Cette analyse n'a été faite que depuis un ordinateur. Il reste impératif de tester techniquement le site sur smartphone, de mesurer sa vitesse de chargement (performances) et de vérifier s'il est adapté aux personnes en situation de handicap (accessibilité).
+
+Missions principales de la Division de l’Architecture, des Études et de l’Intégration
+La Division de l’Architecture, des Études et de l’Intégration contribue à la conception, à la réalisation et à l’évolution des applications métiers.
+Il/elle participe aux développements projets dans le respect des délais, des standards de qualité et des exigences de performance, en appliquant les bonnes pratiques de développement.
+
+Missions principales de la Division Innovation Numérique et PMO
+La Division Innovation Numérique et Projets Stratégiques agit comme catalyseur de la transformation numérique, en structurant l’innovation, en pilotant les projets stratégiques et en diffusant une culture centrée sur l’expérience utilisateur.
+Il participe à l’expérimentation, à la mise en œuvre et au suivi des projets innovants en appui aux directions métiers, en veillant à la qualité, à l’efficacité et à l’alignement des solutions numériques avec les objectifs de modernisation de l’administration publique.
+Il constitue le cœur du dispositif de pilotage des projets numériques, en assurant la gouvernance, la planification, le suivi opérationnel et l’alignement des initiatives avec la stratégie de modernisation.
+
+
+
+
+
+
+
+
+
+
+Missions principales de la Division des Infrastructures, Réseaux et Sécurité
+La Division des Infrastructures, Réseaux et Sécurité contribue à la gestion, à la supervision et à l’évolution des infrastructures numériques du Ministère.
+Il participe à l’exploitation quotidienne, au suivi de la performance et à la sécurisation des réseaux, des serveurs, des plateformes et des solutions numériques.
+Il  joue également un rôle essentiel dans la mise en œuvre des politiques de cybersécurité, la détection des incidents et la maintenance préventive, afin de garantir la continuité et la fiabilité des services numériques.
+
+
+Missions principales de la Division des Services numériques et Supports aux Utilisateurs
+La Division Support, Assistance et Expérience Utilisateur participe à la supervision de la disponibilité des plateformes et à la gestion du support fonctionnel et technique des solutions numériques du ministère.
+Il veille à fournir une assistance rapide et efficace aux utilisateurs, favorise une assistance de proximité, assure la bonne appropriation des outils digitaux et collecte les retours terrain pour améliorer les solutions déployées.
+Il contribue à la documentation des procédures, au suivi des indicateurs de performance et à l’accompagnement des utilisateurs dans leurs usages quotidiens.
+
+
+
+
+
+
+
+
+Missions principales de la Division Informatique Décisionnelle
+La Division Informatique Décisionnelle place la donnée au cœur du pilotage stratégique du Ministère, en structurant un dispositif décisionnel permettant d’orienter, mesurer et ajuster les stratégies.
+Il conçoit et met en œuvre des architectures et solutions décisionnelles garantissant la fiabilité, la cohérence et la gouvernance des données, afin de transformer l’information en levier d’aide à la décision et de performance institutionnelle.
+Il développe des tableaux de bord stratégiques, des indicateurs clés de performance (KPI) et des analyses prospectives permettant d’éclairer les arbitrages, d’optimiser les ressources et de suivre l’impact des actions engagées.
+
+
+

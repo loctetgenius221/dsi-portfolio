@@ -45,10 +45,10 @@ function toggle(i: number) {
   <section class="bg-paper-2 py-16 sm:py-24 lg:py-28">
     <div class="wrap">
       <div class="grid items-center gap-10 lg:grid-cols-12">
-        <div class="lg:col-span-6">
-          <h2 class="h2">Onze missions, regroupées en cinq domaines.</h2>
+        <div v-reveal class="lg:col-span-6">
+          <h2 class="h2">Les missions de la DSI, en cinq domaines.</h2>
           <p class="mt-5 max-w-md leading-relaxed text-ink-soft">
-            Ce que la DSI fait concrètement, au quotidien, pour les agents du Ministère.
+            Les missions confiées à la DSI par le texte d'organisation du Ministère, regroupées par domaine d'action.
           </p>
         </div>
         <div class="lg:col-span-5 lg:col-start-8">
@@ -63,7 +63,7 @@ function toggle(i: number) {
       </div>
 
       <!-- Mobile et tablette : accordéon -->
-      <ul class="mt-10 border-t-2 border-ink lg:hidden">
+      <ul v-reveal="'stagger'" class="mt-10 border-t-2 border-ink lg:hidden">
         <li v-for="(g, i) in missionGroups" :key="g.title" class="border-b border-rule">
           <h3>
             <button
@@ -125,7 +125,7 @@ function toggle(i: number) {
       </ul>
 
       <!-- Ordinateur : lignes illustrées -->
-      <ul class="mt-14 hidden border-t-2 border-ink lg:block">
+      <ul v-reveal="'stagger'" class="mt-14 hidden border-t-2 border-ink lg:block">
         <li
           v-for="g in missionGroups"
           :key="g.title"

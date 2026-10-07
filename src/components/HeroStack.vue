@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { animate, stagger } from 'motion'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { animate, inView, stagger } from 'motion'
 import { divisions } from '@/data/dsi'
 
 const active = defineModel<string | null>('active', { default: null })
@@ -59,15 +59,78 @@ const VB_W_WIDE = 1000
 const LABEL_X = CX + A + 90
 const wide = ref(true)
 
-// Survol : souris uniquement. Au toucher, un appui bascule la couche (pas de survol « collant »).
+// Sélection : clic, appui ou clavier (Entrée/Espace) fixent la couche ; un second la libère.
+// Le survol à la souris n'est qu'un aperçu qui revient ensuite à la couche sélectionnée.
+const pinned = ref<string | null>(null)
+let hovering = false
+let touring = false
+watch(active, (v) => {
+  // Sélection faite ailleurs (légende mobile) : on la garde comme sélection
+  if (!hovering && !touring) pinned.value = v
+})
 function hover(e: PointerEvent, id: string | null) {
-  if (e.pointerType === 'mouse') active.value = id
+  if (e.pointerType !== 'mouse') return
+  stopTour()
+  hovering = id !== null
+  active.value = id ?? pinned.value
 }
-function tap(id: string) {
-  if (!window.matchMedia('(hover: hover)').matches) active.value = active.value === id ? null : id
+function select(id: string) {
+  stopTour()
+  hovering = false
+  pinned.value = pinned.value === id ? null : id
+  active.value = pinned.value
 }
 
+/* Visite guidée : une seule fois, à la première apparition, chaque couche s'allume
+   brièvement du sommet au socle (moins de 5 s). Toute interaction l'interrompt. */
+const root = ref<HTMLElement | null>(null)
+let timers: number[] = []
+let stopView: (() => void) | undefined
+function stopTour() {
+  window.removeEventListener('pointerdown', stopTour)
+  window.removeEventListener('keydown', stopTour)
+  if (!touring && !timers.length) return
+  timers.forEach((t) => clearTimeout(t))
+  timers = []
+  if (touring) {
+    touring = false
+    active.value = pinned.value
+  }
+}
+function startTour() {
+  // Toute interaction sur la page (y compris la légende mobile) interrompt la visite
+  window.addEventListener('pointerdown', stopTour, { once: true })
+  window.addEventListener('keydown', stopTour, { once: true })
+  const order = [...slabs.value].sort((a, b) => b.layer - a.layer).map((s) => s.id)
+  touring = true
+  order.forEach((id, i) => timers.push(window.setTimeout(() => (active.value = id), i * 750)))
+  timers.push(
+    window.setTimeout(() => {
+      touring = false
+      timers = []
+      active.value = pinned.value
+    }, order.length * 750),
+  )
+}
+onBeforeUnmount(() => {
+  stopTour()
+  stopView?.()
+})
+
 onMounted(() => {
+  if (root.value && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    stopView = inView(
+      root.value,
+      () => {
+        // Laisse l'animation d'ouverture se terminer avant la visite ; une interaction l'annule
+        window.addEventListener('pointerdown', stopTour, { once: true })
+        window.addEventListener('keydown', stopTour, { once: true })
+        timers.push(window.setTimeout(startTour, 2200))
+        stopView?.()
+      },
+      { amount: 0.6 },
+    )
+  }
   const mq = window.matchMedia('(min-width: 640px)')
   wide.value = mq.matches
   mq.addEventListener('change', (e) => (wide.value = e.matches))
@@ -93,7 +156,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div ref="root" class="relative">
     <svg
       :viewBox="`0 0 ${wide ? VB_W_WIDE : 640} ${VB_H}`"
       class="h-auto w-full"
@@ -128,7 +191,7 @@ onMounted(() => {
             }"
             @pointerenter="hover($event, s.id)"
             @pointerleave="hover($event, null)"
-            @click="tap(s.id)"
+            @click="select(s.id)"
           >
             <g stroke="#141414" stroke-width="1.6" stroke-linejoin="round">
               <polygon :points="s.left" :fill="s.cLeft" />
@@ -205,12 +268,11 @@ onMounted(() => {
           transform: `translateY(calc(-50% - ${active === s.id ? 20 * 0.57 : 0}px))`,
           opacity: active && active !== s.id ? 0.4 : 1,
         }"
-        :aria-pressed="active === s.id"
+        type="button"
+        :aria-pressed="pinned === s.id"
         @pointerenter="hover($event, s.id)"
         @pointerleave="hover($event, null)"
-        @click="tap(s.id)"
-        @focus="active = s.id"
-        @blur="active = null"
+        @click="select(s.id)"
       >
         {{ s.short }}
       </button>

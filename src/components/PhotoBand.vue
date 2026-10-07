@@ -26,9 +26,9 @@ const points = ['Applications', 'Réseaux et sécurité', 'Données des agents d
 
     <div class="wrap relative flex min-h-120 flex-col justify-center py-20">
       <p class="display max-w-3xl text-[clamp(1.9rem,3.6vw,3.2rem)]">
-        Des applications fiables, des réseaux protégés, des agents mieux outillés.
+        Des applications fiables, des réseaux protégés, des agents accompagnés.
       </p>
-      <ul class="mt-10 flex flex-wrap gap-3">
+      <ul v-reveal="'stagger'" class="mt-10 flex flex-wrap gap-3">
         <li v-for="(p, i) in points" :key="p" class="flex items-center gap-2.5 border-2 border-white bg-ink/50 px-4 py-2 font-semibold backdrop-blur-sm">
           <span class="h-3 w-3 rounded-full border border-ink" :class="['bg-green', 'bg-yellow', 'bg-red', 'bg-white'][i % 4]"></span>{{ p }}
         </li>

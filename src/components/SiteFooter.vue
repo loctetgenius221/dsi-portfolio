@@ -17,8 +17,9 @@
       </div>
       <div class="flex flex-col justify-between gap-8 lg:col-span-4 lg:col-start-9">
         <p class="text-sm leading-relaxed text-white/60">
-          La DSI travaille avec les structures du Ministère et avec le SENUM SA pour la
-          digitalisation des procédures administratives.
+          La DSI travaille en étroite collaboration avec les structures du Ministère, pour répondre
+          à leurs besoins numériques, et avec SENUM SA pour la numérisation des procédures
+          administratives.
         </p>
         <div class="flex items-center gap-2">
           <img src="/images/p2/Flag_of_Senegal.svg.webp" class="w-5" alt="Drapeau du Sénégal" />

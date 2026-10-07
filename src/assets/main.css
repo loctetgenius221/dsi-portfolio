@@ -23,6 +23,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Réserve la place de la barre de défilement : pas de décalage quand le volet bloque le défilement */
+    scrollbar-gutter: stable;
   }
   body {
     margin: 0;
@@ -138,7 +140,7 @@
   }
 }
 
-/* Annotation manuscrite : visible seulement avec une souris, dès 1024 px (le texte parle de survol).
+/* Annotation manuscrite : visible seulement avec une souris, dès 1024 px (simple aide visuelle, la consigne écrite reste sous l'illustration).
    Hors des couches CSS pour l'emporter sur les utilitaires `flex` / `block` de Tailwind. */
 .hint-hover {
   display: none;

@@ -3,7 +3,7 @@ import { IconCheck } from '@tabler/icons-vue'
 import { Mail, Phone } from 'lucide-vue-next'
 import { heads } from '@/data/dsi'
 
-// Le support (Division Support, Assistance et Expérience Utilisateur) est le premier point d'entrée
+// Le support (Division des Services numériques et Supports aux Utilisateurs) est le premier point d'entrée
 const support = heads.services!
 
 const checklist = [
@@ -23,7 +23,7 @@ const checklist = [
       <div v-reveal class="lg:col-span-6">
         <h2 class="display text-[clamp(2rem,3.8vw,3.4rem)]">Le support, premier point d'entrée de vos demandes.</h2>
         <p class="mt-6 max-w-lg text-[1.2rem] font-medium leading-snug sm:text-[1.3rem]">
-          En cas de doute sur l'interlocuteur, la Division Support, Assistance et Expérience Utilisateur reçoit votre demande et l'oriente vers l'unité compétente.
+          En cas de doute sur l'interlocuteur, la Division des Services numériques et Supports aux Utilisateurs reçoit votre demande et l'oriente vers l'unité compétente.
         </p>
         <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           <a

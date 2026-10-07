@@ -105,7 +105,7 @@ export const divisions: Division[] = [
   {
     id: 'architecture',
     short: 'Architecture, Études et Intégration',
-    name: "Division de l'Architecture, des Études et de l'Intégration",
+    name: 'Division de l’Architecture, des Études et de l’Intégration',
     role: "Conçoit, développe et intègre les solutions et applications numériques du Ministère dans un système d'information cohérent.",
     layer: 2,
     swatch: '#f43438',
@@ -117,8 +117,8 @@ export const divisions: Division[] = [
   },
   {
     id: 'innovation',
-    short: 'Innovation Numérique et Projets Stratégiques',
-    name: 'Division Innovation Numérique et Projets Stratégiques',
+    short: 'Innovation Numérique et PMO',
+    name: 'Division Innovation Numérique et PMO',
     role: 'Impulse l’innovation, assure la veille technologique et pilote les projets stratégiques de transformation numérique.',
     layer: 4,
     swatch: '#ffcc34',
@@ -139,8 +139,8 @@ export const divisions: Division[] = [
   },
   {
     id: 'services',
-    short: 'Support, Assistance et Expérience Utilisateur',
-    name: 'Division Support, Assistance et Expérience Utilisateur',
+    short: 'Services numériques et Supports aux Utilisateurs',
+    name: 'Division des Services numériques et Supports aux Utilisateurs',
     role: 'Assure l’assistance quotidienne des agents et des usagers et accompagne l’appropriation des outils numériques.',
     layer: 3,
     swatch: '#009454',
@@ -148,8 +148,8 @@ export const divisions: Division[] = [
   },
   {
     id: 'decisionnel',
-    short: 'Informatique décisionnelle',
-    name: "Division de l'Informatique décisionnelle",
+    short: 'Informatique Décisionnelle',
+    name: 'Division Informatique Décisionnelle',
     role: 'Exploite les données RH pour produire les indicateurs qui éclairent la décision.',
     layer: 1,
     swatch: '#ffcc34',
@@ -275,7 +275,7 @@ export const needs: {
   {
     art: 'monitor' as ArtKind,
     label: 'J’ai un problème avec mon poste de travail ou un logiciel',
-    target: 'Support, Assistance et Expérience Utilisateur',
+    target: 'Services numériques et Supports aux Utilisateurs',
     unitId: 'services',
     example: 'Problème de poste de travail, question d’utilisation d’un logiciel',
   },
@@ -296,14 +296,14 @@ export const needs: {
   {
     art: 'bulb' as ArtKind,
     label: 'J’ai une idée innovante à proposer ou une question sur un projet stratégique',
-    target: 'Innovation Numérique et Projets Stratégiques',
+    target: 'Innovation Numérique et PMO',
     unitId: 'innovation',
     example: 'Proposition d’une idée innovante, question sur un projet numérique en cours',
   },
   {
     art: 'database' as ArtKind,
     label: 'J’ai besoin d’un tableau de bord ou d’indicateurs',
-    target: 'Informatique décisionnelle',
+    target: 'Informatique Décisionnelle',
     unitId: 'decisionnel',
     example: 'Tableaux de bord, indicateurs de pilotage',
   },
@@ -317,7 +317,7 @@ export const needs: {
   {
     art: 'monitor' as ArtKind,
     label: 'Je ne sais pas à qui m’adresser',
-    target: 'Support, Assistance et Expérience Utilisateur',
+    target: 'Services numériques et Supports aux Utilisateurs',
     unitId: 'services',
     example: 'Le support reçoit votre demande et l’oriente vers l’unité compétente.',
     /** Premier point d'entrée en cas de doute (guide d'accueil) */

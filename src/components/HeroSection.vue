@@ -22,31 +22,39 @@ function toggle(id: string) {
     ></div>
 
     <div class="wrap relative">
-      <header class="flex items-center justify-between gap-3 py-5 sm:gap-6 sm:py-6">
-        <div class="flex min-w-0 items-center gap-3 sm:gap-4">
-          <span class="relative font-sans text-2xl font-extrabold tracking-tight text-green">
+      <header class="flex items-center justify-between gap-4 py-8 sm:gap-6 sm:py-10">
+        <!-- Gauche : sigle et nom de la Direction -->
+        <div class="flex min-w-0 items-center gap-2.5 sm:gap-4">
+          <span
+            class="relative shrink-0 font-sans text-xl font-extrabold tracking-tight text-green sm:text-2xl"
+            aria-hidden="true"
+          >
             DSI
             <span class="absolute -bottom-1 left-0 flex h-0.75 w-full"
               ><i class="flex-1 bg-green"></i><i class="flex-1 bg-yellow"></i
               ><i class="flex-1 bg-red"></i
             ></span>
           </span>
-          <span class="h-6 w-px bg-rule"></span>
-          <div class="flex items-center gap-2">
-            <img
-              src="/images/logo-fp.png"
-              class="w-10"
-              alt="Logo du Ministère de la Fonction publique"
-            />
-            <p class="text-[0.68rem] leading-snug text-ink sm:text-sm sm:leading-tight">
-              Ministère de la Fonction publique, du<br />
-              Travail et de la Réforme du Service Public
-            </p>
-          </div>
+          <span class="h-7 w-px shrink-0 bg-rule sm:h-8" aria-hidden="true"></span>
+          <p class="min-w-0 text-[0.72rem] font-semibold leading-tight text-ink sm:text-sm">
+            Direction des Systèmes<br />
+            d'Information
+          </p>
         </div>
-        <div class="flex items-center gap-2">
-          <p class="text-sm font-semibold tabular-nums text-ink-soft">2026</p>
-          <img class="w-5" src="/images/p2/Flag_of_Senegal.svg.webp" alt="" />
+
+        <!-- Droite : Ministère et son logo, tout à droite -->
+        <div class="flex shrink-0 items-center gap-2.5 sm:gap-3">
+          <img
+            src="/images/logo-fp.png"
+            class="w-9 shrink-0 sm:w-11"
+            alt="Logo Ministère de la fonction publique du Sénégal"
+          />
+          <p
+            class="sr-only text-left text-[0.78rem] leading-tight text-ink md:not-sr-only lg:text-sm"
+          >
+            Ministère de la Fonction publique, du<br />
+            Travail et de la Réforme du Service Public
+          </p>
         </div>
       </header>
 
@@ -79,8 +87,8 @@ function toggle(id: string) {
             <HeroStack v-model:active="active" />
           </div>
           <p class="mt-2 hidden text-center text-sm text-ink-soft sm:block">
-            <span class="font-semibold text-ink">Figure 1.</span> Les cinq divisions de la DSI, du socle technique à
-            l'innovation. Sélectionnez une couche.
+            <span class="font-semibold text-ink">Figure 1.</span> Les cinq divisions de la DSI, du
+            socle technique à l'innovation. Sélectionnez une couche.
           </p>
 
           <!-- Légende mobile : liste à toucher, dans l'ordre de l'illustration -->

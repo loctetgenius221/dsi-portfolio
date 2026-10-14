@@ -1,16 +1,15 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-display: "Newsreader", Georgia, serif;
-  --font-hand: "Caveat", "Segoe Print", cursive;
-  --font-sans: "Schibsted Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-hand: 'Caveat', 'Segoe Print', cursive;
+  --font-sans: 'Schibsted Grotesk', 'Segoe UI', system-ui, sans-serif;
 
   /* Les trois couleurs institutionnelles */
-  --color-green: #009454;
+  --color-green: #00843f;
   --color-green-deep: #00763f; /* variante foncée du vert : texte blanc ≥ 4,5:1 (WCAG AA) */
-  /* --color-yellow: #ffcc34; */
-  --color-yellow: #EAB308;
-  --color-red: #f43438;
+  --color-yellow: #fcc207;
+  --color-red: #e01926;
 
   /* Neutres uniquement */
   --color-paper: #ffffff;
@@ -48,7 +47,7 @@
 }
 
 @property --angle {
-  syntax: "<angle>";
+  syntax: '<angle>';
   initial-value: 0deg;
   inherits: false;
 }
@@ -73,16 +72,22 @@
     isolation: isolate;
   }
   .moving-border::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: -2px;
     z-index: -1;
     border-radius: inherit;
-    background: conic-gradient(from var(--angle), transparent 0 70%, #ffcc34 82%, #f43438 92%, transparent 100%);
+    background: conic-gradient(
+      from var(--angle),
+      transparent 0 70%,
+      #ffcc34 82%,
+      #f43438 92%,
+      transparent 100%
+    );
     animation: spin-angle 5s linear infinite;
   }
   .moving-border::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
@@ -118,7 +123,7 @@
     font-weight: 450;
     letter-spacing: -0.02em;
     line-height: 1.08;
-    font-variation-settings: "opsz" 48;
+    font-variation-settings: 'opsz' 48;
   }
   .wrap {
     margin-inline: auto;

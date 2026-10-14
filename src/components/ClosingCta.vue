@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { IconCheck } from '@tabler/icons-vue'
 import { Mail, Phone } from 'lucide-vue-next'
-import { heads } from '@/data/dsi'
+import { unitDetails } from '@/data/dsi'
+import Pending from './Pending.vue'
 
 // Le support (Division des Services numériques et Supports aux Utilisateurs) est le premier point d'entrée
-const support = heads.services!
+// Contact fonctionnel du support (jamais de coordonnées nominatives)
+const support = unitDetails.services?.contact ?? null
 
 const checklist = [
   { title: 'Vos coordonnées', text: 'Nom, direction ou service, numéro de téléphone.' },
@@ -25,18 +27,26 @@ const checklist = [
         <p class="mt-6 max-w-lg text-[1.2rem] font-medium leading-snug sm:text-[1.3rem]">
           En cas de doute sur l'interlocuteur, la Division des Services numériques et Supports aux Utilisateurs reçoit votre demande et l'oriente vers l'unité compétente.
         </p>
-        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+        <div
+          v-if="support && (support.phone || support.email)"
+          class="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
+        >
           <a
+            v-if="support.phone"
             :href="`tel:${support.phone.replace(/\s/g, '')}`"
             class="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border-2 border-ink bg-yellow px-7 py-3.5 text-center font-bold text-ink shadow-[4px_4px_0_var(--color-ink)] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--color-ink)] sm:inline-flex sm:w-auto"
             ><Phone :size="18" aria-hidden="true" />Appeler le support</a
           >
           <a
+            v-if="support.email"
             :href="`mailto:${support.email}`"
             class="flex min-h-12 w-full min-w-0 items-center justify-center gap-2 border-2 border-white px-5 py-3 text-center font-semibold transition-colors hover:bg-white hover:text-green-deep sm:inline-flex sm:w-auto"
             ><Mail :size="18" class="shrink-0" aria-hidden="true" />Écrire au support</a
           >
         </div>
+        <p v-else class="mt-9">
+          <Pending label="Coordonnées du support à compléter" />
+        </p>
         <p class="mt-5 text-sm text-white">
           Vous connaissez l'unité concernée ?
           <a href="#contact" class="font-semibold underline underline-offset-4 hover:text-yellow">Consulter « Qui contacter pour quoi ? »</a>

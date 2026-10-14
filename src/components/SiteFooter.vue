@@ -5,7 +5,7 @@
         <p class="display text-4xl text-white sm:text-5xl">Direction des Systèmes d'Information</p>
         <div class="flex items-center gap-4 pt-6 text-sm leading-relaxed">
           <img
-            src="/images/logo-fp.png"
+            src="/images/logos/ministere.png"
             class="w-13"
             alt="Logo du Ministère de la Fonction publique"
           />

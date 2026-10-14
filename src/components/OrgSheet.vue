@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Mail, Phone } from 'lucide-vue-next'
 import type { Person, UnitDetails } from '@/data/dsi'
 import Avatar from './Avatar.vue'
 import Pending from './Pending.vue'
+import FunctionalContact from './FunctionalContact.vue'
 
 export interface Sheet {
   name: string
@@ -40,10 +40,10 @@ defineProps<{ sheet: Sheet }>()
           </div>
         </section>
 
-        <!-- 2. Responsabilités -->
+        <!-- 2. Attributions (missions de la DSI, périmètre fonctionnel des unités) -->
         <section>
           <h3 class="text-sm font-bold uppercase tracking-wide text-green-deep">
-            Principales responsabilités
+            Principales attributions
           </h3>
           <ul v-if="sheet.details.responsibilities" class="mt-2 list-disc space-y-1 pl-5">
             <li v-for="r in sheet.details.responsibilities" :key="r">{{ r }}</li>
@@ -94,7 +94,6 @@ defineProps<{ sheet: Sheet }>()
               >
             </li>
           </ul>
-          <p class="mt-2 text-xs text-ink-soft">Intitulés provisoires, en cours de validation.</p>
         </section>
 
         <!-- Responsable -->
@@ -105,15 +104,13 @@ defineProps<{ sheet: Sheet }>()
               ><Avatar :person="sheet.person" :size="64" :color="sheet.color"
             /></span>
             <div class="min-w-0 leading-tight">
-              <p class="display text-[1.3rem] sm:text-[1.45rem]">{{ sheet.person.name }}</p>
+              <p class="display text-[1.3rem] sm:text-[1.45rem]">
+                <template v-if="sheet.person.name">{{ sheet.person.name }}</template>
+                <Pending v-else label="Nom à compléter" />
+              </p>
               <p class="mt-1 text-ink-soft">{{ sheet.person.title }}</p>
             </div>
           </div>
-          <a
-            :href="`mailto:${sheet.person.email}`"
-            class="mt-4 flex min-h-12 w-full min-w-0 items-center justify-center gap-2 break-all border-2 border-ink px-2.5 py-2.5 text-center text-[0.78rem] font-semibold transition-colors hover:bg-green-deep hover:text-white sm:text-[0.9rem] @md:justify-start"
-            ><Mail :size="16" class="shrink-0" aria-hidden="true" />{{ sheet.person.email }}</a
-          >
         </section>
 
         <!-- 5. Contact fonctionnel (adresse ou téléphone générique de l'unité) -->
@@ -121,21 +118,7 @@ defineProps<{ sheet: Sheet }>()
           <h3 class="text-sm font-bold uppercase tracking-wide text-green-deep">
             Contact fonctionnel
           </h3>
-          <div v-if="sheet.details.contact" class="mt-2 flex flex-col gap-2">
-            <a
-              v-if="sheet.details.contact.email"
-              :href="`mailto:${sheet.details.contact.email}`"
-              class="flex min-h-12 items-center gap-2 break-all border-2 border-ink px-3 py-2.5 text-[0.9rem] font-semibold transition-colors hover:bg-green-deep hover:text-white"
-              ><Mail :size="16" class="shrink-0" aria-hidden="true" />{{ sheet.details.contact.email }}</a
-            >
-            <a
-              v-if="sheet.details.contact.phone"
-              :href="`tel:${sheet.details.contact.phone.replace(/\s/g, '')}`"
-              class="flex min-h-12 items-center gap-2 border-2 border-ink px-3 py-2.5 text-[0.9rem] font-semibold transition-colors hover:bg-green-deep hover:text-white"
-              ><Phone :size="16" class="shrink-0" aria-hidden="true" />{{ sheet.details.contact.phone }}</a
-            >
-          </div>
-          <p v-else class="mt-2"><Pending /></p>
+          <div class="mt-2"><FunctionalContact :contact="sheet.details.contact" /></div>
         </section>
       </div>
     </div>

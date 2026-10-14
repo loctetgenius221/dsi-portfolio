@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Component } from 'vue'
-import { Mail, Phone } from 'lucide-vue-next'
 import {
   IconBolt,
   IconBulb,
@@ -13,8 +12,10 @@ import {
   IconShieldCheck,
   IconTool,
 } from '@tabler/icons-vue'
-import { heads, needs } from '@/data/dsi'
+import { heads, needs, unitDetails } from '@/data/dsi'
 import Avatar from './Avatar.vue'
+import FunctionalContact from './FunctionalContact.vue'
+import Pending from './Pending.vue'
 
 // Icône Tabler de chaque situation (même famille que les missions)
 const iconOf: Record<string, Component> = {
@@ -100,21 +101,15 @@ function toggle(i: number) {
                         <Avatar :person="heads[n.unitId]!" :size="52" color="#009454" />
                       </span>
                       <div class="min-w-0 leading-tight">
-                        <p class="font-bold">{{ heads[n.unitId]!.name }}</p>
+                        <p class="font-bold">
+                          <template v-if="heads[n.unitId]!.name">{{ heads[n.unitId]!.name }}</template>
+                          <Pending v-else label="Nom à compléter" />
+                        </p>
                         <p class="text-sm text-ink-soft">{{ heads[n.unitId]!.title }}</p>
                       </div>
                     </div>
-                    <div class="mt-4 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
-                      <a
-                        :href="`tel:${heads[n.unitId]!.phone.replace(/\s/g, '')}`"
-                        class="flex min-h-12 items-center justify-center gap-2 whitespace-nowrap border-2 border-ink bg-yellow px-4 py-2.5 text-center font-semibold transition-colors hover:bg-ink hover:text-white sm:justify-start"
-                        ><Phone :size="16" aria-hidden="true" />{{ heads[n.unitId]!.phone }}</a
-                      >
-                      <a
-                        :href="`mailto:${heads[n.unitId]!.email}`"
-                        class="flex min-h-12 min-w-0 items-center justify-center gap-2 break-all border-2 border-ink bg-white px-4 py-2.5 text-center text-[0.92rem] font-semibold transition-colors hover:bg-ink hover:text-white sm:justify-start"
-                        ><Mail :size="16" class="shrink-0" aria-hidden="true" />{{ heads[n.unitId]!.email }}</a
-                      >
+                    <div class="mt-4">
+                      <FunctionalContact :contact="unitDetails[n.unitId]?.contact ?? null" />
                     </div>
                   </div>
                 </div>
@@ -123,7 +118,7 @@ function toggle(i: number) {
           </li>
         </ul>
         <p class="mt-6 text-sm text-ink-soft">
-          Responsables et coordonnées fictifs, à remplacer par les informations réelles.
+          Les coordonnées publiées sont celles des unités, jamais des personnes.
         </p>
       </div>
     </div>

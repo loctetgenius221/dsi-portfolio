@@ -195,7 +195,7 @@ onBeforeUnmount(() => {
             v-if="orgStatus === 'cible'"
             class="mb-4 inline-block border-2 border-ink bg-yellow px-3 py-1 text-sm font-bold"
           >
-            Organisation cible proposée
+            Organisation cible proposée, sous réserve de validation officielle
           </p>
           <h2 class="h2">Organigramme de la Direction.</h2>
         </div>
@@ -267,7 +267,10 @@ onBeforeUnmount(() => {
                 ><Avatar :person="heads.dsi!" :size="40" :color="GREEN"
               /></span>
               <span class="min-w-0 text-left leading-tight">
-                <span class="block text-[0.95rem] font-semibold">{{ heads.dsi!.name }}</span>
+                <span class="block text-[0.95rem] font-semibold">
+                  <template v-if="heads.dsi!.name">{{ heads.dsi!.name }}</template>
+                  <Pending v-else label="Nom à compléter" />
+                </span>
                 <span class="text-sm">{{ heads.dsi!.title }}</span>
               </span>
               <IconChevronDown
@@ -338,7 +341,10 @@ onBeforeUnmount(() => {
                   ><Avatar :person="heads[u.id]!" :size="40" :color="GREEN"
                 /></span>
                 <span class="min-w-0 flex-1 leading-tight">
-                  <span class="block text-[0.85rem] font-semibold">{{ heads[u.id]!.name }}</span>
+                  <span class="block text-[0.85rem] font-semibold">
+                    <template v-if="heads[u.id]!.name">{{ heads[u.id]!.name }}</template>
+                    <Pending v-else label="À compléter" class="whitespace-nowrap" />
+                  </span>
                   <span class="block text-xs text-ink-soft">{{ heads[u.id]!.title }}</span>
                 </span>
                 <IconArrowRight size="18" stroke="2" class="shrink-0 text-green-deep" aria-hidden="true" />
@@ -377,7 +383,7 @@ onBeforeUnmount(() => {
                   u.label
                 }}</span>
                 <span class="mt-1 block truncate text-[0.82rem] text-ink-soft">{{
-                  heads[u.id]!.name
+                  heads[u.id]!.name ?? 'Responsable à compléter'
                 }}</span>
               </span>
               <span
@@ -411,7 +417,7 @@ onBeforeUnmount(() => {
         </ul>
 
         <p class="mt-6 text-sm text-ink-soft">
-          Responsables, photos et e-mails : données fictives, à remplacer.
+          Photos des responsables : publiées uniquement avec l’accord des personnes.
         </p>
       </div>
     </div>

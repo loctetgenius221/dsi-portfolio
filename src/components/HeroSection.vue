@@ -45,7 +45,7 @@ function toggle(id: string) {
         <!-- Droite : Ministère et son logo, tout à droite -->
         <div class="flex shrink-0 items-center gap-2.5 sm:gap-3">
           <img
-            src="/images/logo-fp.png"
+            src="/images/logos/ministere.png"
             class="w-9 shrink-0 sm:w-11"
             alt="Logo Ministère de la fonction publique du Sénégal"
           />

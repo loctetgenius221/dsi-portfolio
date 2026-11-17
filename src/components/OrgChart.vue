@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { animate, inView, stagger } from 'motion'
 import { IconArrowRight, IconChevronDown, IconX } from '@tabler/icons-vue'
 import { adminBureau, divisions, heads, unitDetails } from '@/data/dsi'
@@ -87,6 +87,37 @@ function sheetOf(id: string): Sheet {
   }
 }
 
+/* ── Chemin allumé : de la Direction jusqu'à l'unité survolée ou ouverte ── */
+const hovered = ref<string | null>(null)
+const activeIdx = computed(() => units.findIndex((u) => u.id === (hovered.value ?? selected.value)))
+// Grand écran : la barre horizontale part du centre (entre la 3e et la 4e unité)
+const MID = units.length / 2
+const lit = {
+  trunk: () => activeIdx.value >= 0,
+  drop: (j: number) => j === activeIdx.value,
+  // Demi-barres à gauche et à droite du centre de chaque carte
+  left: (j: number) => {
+    const a = activeIdx.value
+    if (a < 0) return false
+    return a >= MID ? j >= MID && j <= a : j > a && j < MID
+  },
+  right: (j: number) => {
+    const a = activeIdx.value
+    if (a < 0) return false
+    return a >= MID ? j >= MID && j < a : j >= a && j < MID
+  },
+  // Petit écran : tronc vertical (au-dessus et au-dessous de chaque branche) et branche
+  above: (j: number) => activeIdx.value >= 0 && j <= activeIdx.value,
+  below: (j: number) => activeIdx.value >= 0 && j < activeIdx.value,
+}
+const tone = (on: boolean) => (on ? 'bg-green' : 'bg-ink')
+// Rang d'une demi-barre en partant du centre : sert au tracé qui s'ouvre vers les côtés
+function sweepOrder(j: number, side: 'left' | 'right') {
+  return j < MID
+    ? (MID - 1 - j) * 2 + (side === 'right' ? 0 : 1)
+    : (j - MID) * 2 + (side === 'left' ? 0 : 1)
+}
+
 function kindOf(id: string) {
   return id === 'dsi' ? 'Direction' : (units.find((u) => u.id === id)?.kind ?? '')
 }
@@ -154,19 +185,41 @@ onMounted(() => {
 
   if (!chart.value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   const root = chart.value
-  const lines = root.querySelectorAll<HTMLElement>('[data-line]')
-  const nodes = root.querySelectorAll<HTMLElement>('[data-node]')
+  // Le tracé suit la hiérarchie : tutelle, trait, Direction, trait, barre ouverte depuis
+  // le centre, descentes, puis les unités (data-line / data-node = étape du tracé)
+  const lines = Array.from(root.querySelectorAll<HTMLElement>('[data-line]'))
+  const nodes = Array.from(root.querySelectorAll<HTMLElement>('[data-node]'))
+  const at = (els: HTMLElement[], step: string) =>
+    els.filter((e) => e.dataset[e.hasAttribute('data-line') ? 'line' : 'node'] === step)
   lines.forEach((l) => (l.style.transform = 'scale(0)'))
   nodes.forEach((n) => (n.style.opacity = '0'))
+  const ease = [0.22, 1, 0.36, 1] as const
+  const draw = (els: HTMLElement[], start: number, duration = 0.35, gap = 0) =>
+    animate(
+      els,
+      { transform: 'scale(1)' },
+      { duration, delay: stagger(gap, { startDelay: start }), ease },
+    )
+  const show = (els: HTMLElement[], start: number, gap = 0) =>
+    animate(els, { opacity: 1 }, { duration: 0.5, delay: stagger(gap, { startDelay: start }) })
   inView(
     root,
     () => {
-      animate(nodes, { opacity: 1 }, { duration: 0.6, delay: stagger(0.06) })
-      animate(
-        lines,
-        { transform: 'scale(1)' },
-        { duration: 0.6, delay: stagger(0.05, { startDelay: 0.2 }), ease: [0.22, 1, 0.36, 1] },
+      show(at(nodes, '1'), 0)
+      draw(at(lines, '1'), 0.25)
+      show(at(nodes, '2'), 0.5)
+      draw(at(lines, '2'), 0.8)
+      // Barre : chaque moitié démarre quand la précédente (plus proche du centre) se termine
+      const SEG = 0.05
+      at(lines, '3').forEach((l) =>
+        animate(
+          l,
+          { transform: 'scale(1)' },
+          { duration: SEG, delay: 1.05 + Number(l.dataset.order) * SEG, ease: 'linear' },
+        ),
       )
+      draw(at(lines, '4'), 1.55, 0.3)
+      show(at(nodes, '3'), 1.65, 0.06)
     },
     { amount: 0.1 },
   )
@@ -189,7 +242,7 @@ onBeforeUnmount(() => {
     ></div>
     <div class="wrap relative">
       <div v-reveal>
-        <h2 v-split class="h2">Organigramme de la Direction.</h2>
+        <h2 class="h2">Organigramme de la Direction.</h2>
         <p class="mt-4 max-w-2xl leading-relaxed text-ink-soft">
           Rattachée au Secrétariat général, la DSI compte cinq divisions et un bureau. Sélectionnez
           une unité pour consulter sa fiche.
@@ -204,17 +257,17 @@ onBeforeUnmount(() => {
         <!-- Niveau 1 : tutelle -->
         <div class="flex flex-col items-center">
           <div
-            data-node
+            data-node="1"
             class="w-full bg-ink px-6 py-3.5 text-center text-white sm:w-auto sm:min-w-80 sm:px-10"
           >
             <p class="text-sm font-semibold text-white/80">Tutelle</p>
             <p class="display text-xl sm:text-2xl">Secrétariat général</p>
           </div>
-          <i data-line class="h-8 w-0.5 origin-top bg-ink"></i>
+          <i data-line="1" class="h-8 w-0.5 origin-top bg-ink"></i>
 
           <!-- Niveau 2 : direction -->
           <button
-            data-node
+            data-node="2"
             type="button"
             class="relative w-full max-w-none border-2 border-ink bg-green-deep px-5 pb-4 pt-4 text-center text-white transition-shadow sm:px-8 xl:max-w-md"
             :class="selected === 'dsi' ? 'shadow-[6px_6px_0_var(--color-ink)]' : ''"
@@ -227,7 +280,9 @@ onBeforeUnmount(() => {
             <span class="display mt-0.5 block text-[1.35rem] leading-tight sm:text-2xl"
               >Direction des Systèmes d'Information</span
             >
-            <span class="mt-4 flex items-center justify-center gap-3 border-t border-white/35 pt-3.5">
+            <span
+              class="mt-4 flex items-center justify-center gap-3 border-t border-white/35 pt-3.5"
+            >
               <span class="shrink-0 rounded-full ring-2 ring-white"
                 ><Avatar :person="heads.dsi!" :size="40" :color="GREEN"
               /></span>
@@ -244,10 +299,19 @@ onBeforeUnmount(() => {
                 :class="selected === 'dsi' ? 'rotate-180' : ''"
                 aria-hidden="true"
               />
-              <IconArrowRight size="20" stroke="2" class="hidden shrink-0 xl:block" aria-hidden="true" />
+              <IconArrowRight
+                size="20"
+                stroke="2"
+                class="hidden shrink-0 xl:block"
+                aria-hidden="true"
+              />
             </span>
           </button>
-          <i data-line class="hidden h-8 w-0.5 origin-top bg-ink xl:block"></i>
+          <i
+            data-line="2"
+            class="hidden h-8 w-0.5 origin-top transition-colors duration-300 xl:block"
+            :class="tone(lit.trunk())"
+          ></i>
         </div>
 
         <!-- Fiche de la DSI, sous le noeud (petits écrans) -->
@@ -267,30 +331,50 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- Raccord entre la DSI et la liste (< xl) -->
-        <i data-line class="ml-3 block h-6 w-0.5 origin-top bg-ink sm:ml-5 xl:hidden"></i>
+        <i
+          data-line="2"
+          class="ml-3 block h-6 w-0.5 origin-top transition-colors duration-300 sm:ml-5 xl:hidden"
+          :class="tone(lit.trunk())"
+        ></i>
 
         <!-- Niveau 3 : arbre horizontal (xl) -->
         <ul class="hidden xl:grid xl:grid-cols-6 xl:gap-4">
           <li v-for="(u, i) in units" :key="u.id" class="relative pt-8">
+            <!-- Barre horizontale, en deux moitiés de part et d'autre de la carte -->
             <i
-              data-line
-              class="absolute top-0 h-0.5 origin-center bg-ink"
-              :class="
-                i === 0
-                  ? 'left-1/2 -right-2'
-                  : i === units.length - 1
-                    ? '-left-2 right-1/2'
-                    : '-left-2 -right-2'
-              "
+              v-if="i > 0"
+              data-line="3"
+              :data-order="sweepOrder(i, 'left')"
+              class="absolute -left-2 right-1/2 top-0 h-0.5 transition-colors duration-300"
+              :class="[tone(lit.left(i)), i < MID ? 'origin-right' : 'origin-left']"
             ></i>
-            <i data-line class="absolute left-1/2 top-0 h-8 w-0.5 -translate-x-1/2 origin-top bg-ink"></i>
+            <i
+              v-if="i < units.length - 1"
+              data-line="3"
+              :data-order="sweepOrder(i, 'right')"
+              class="absolute left-1/2 -right-2 top-0 h-0.5 transition-colors duration-300"
+              :class="[tone(lit.right(i)), i < MID ? 'origin-right' : 'origin-left']"
+            ></i>
+            <i
+              data-line="4"
+              class="absolute left-1/2 top-0 h-8 w-0.5 -translate-x-1/2 origin-top transition-colors duration-300"
+              :class="tone(lit.drop(i))"
+            ></i>
             <button
-              data-node
+              data-node="3"
               type="button"
               class="group relative flex h-64 w-full flex-col items-start border-2 border-ink bg-white px-4 pb-4 pt-5 text-left text-ink transition-all duration-200 hover:-translate-y-0.5"
-              :class="selected === u.id ? 'shadow-[6px_6px_0_var(--color-green)]' : 'hover:shadow-[4px_4px_0_var(--color-ink)]'"
+              :class="
+                selected === u.id
+                  ? 'shadow-[6px_6px_0_var(--color-green)]'
+                  : 'hover:shadow-[4px_4px_0_var(--color-ink)]'
+              "
               aria-haspopup="dialog"
               @click="pick(u.id, $event)"
+              @pointerenter="hovered = u.id"
+              @pointerleave="hovered = null"
+              @focus="hovered = u.id"
+              @blur="hovered = null"
             >
               <span class="absolute inset-x-0 top-0 h-1.5 bg-green"></span>
               <span class="text-sm font-semibold text-ink-soft">{{ u.kind }}</span>
@@ -310,7 +394,12 @@ onBeforeUnmount(() => {
                   </span>
                   <span class="block text-xs text-ink-soft">{{ heads[u.id]!.title }}</span>
                 </span>
-                <IconArrowRight size="18" stroke="2" class="shrink-0 text-green-deep" aria-hidden="true" />
+                <IconArrowRight
+                  size="18"
+                  stroke="2"
+                  class="shrink-0 text-green-deep"
+                  aria-hidden="true"
+                />
               </span>
             </button>
           </li>
@@ -319,19 +408,37 @@ onBeforeUnmount(() => {
         <!-- Niveau 3 : liste verticale avec fiche dépliable (< xl) -->
         <ul class="relative ml-3 space-y-3 pl-5 sm:ml-5 sm:pl-7 xl:hidden">
           <li v-for="(u, i) in units" :key="u.id" class="relative">
+            <!-- Tronc vertical : au-dessus puis au-dessous de la branche, et la branche -->
             <i
-              class="absolute -left-5 w-0.5 bg-ink sm:-left-7"
-              :class="i === units.length - 1 ? '-top-3 h-[2.75rem]' : '-top-3 -bottom-3'"
+              data-line="3"
+              :data-order="i * 2"
+              class="absolute -left-5 -top-3 h-[2.75rem] w-0.5 origin-top transition-colors duration-300 sm:-left-7"
+              :class="tone(lit.above(i))"
             ></i>
-            <i data-line class="absolute -left-5 top-8 h-0.5 w-5 origin-left bg-ink sm:-left-7 sm:w-7"></i>
+            <i
+              v-if="i < units.length - 1"
+              data-line="3"
+              :data-order="i * 2 + 1"
+              class="absolute -bottom-3 -left-5 top-8 w-0.5 origin-top transition-colors duration-300 sm:-left-7"
+              :class="tone(lit.below(i))"
+            ></i>
+            <i
+              data-line="4"
+              class="absolute -left-5 top-8 h-0.5 w-5 origin-left transition-colors duration-300 sm:-left-7 sm:w-7"
+              :class="tone(lit.drop(i))"
+            ></i>
             <button
-              data-node
+              data-node="3"
               type="button"
               class="relative flex min-h-18 w-full items-center gap-3 border-2 border-ink bg-white py-3 pl-5 pr-3.5 text-left text-ink transition-colors duration-200 sm:gap-4 sm:pl-6 sm:pr-5"
               :class="selected === u.id ? 'bg-paper-2' : ''"
               :aria-expanded="selected === u.id"
               :aria-controls="`org-a-${u.id}`"
               @click="pick(u.id, $event)"
+              @pointerenter="hovered = u.id"
+              @pointerleave="hovered = null"
+              @focus="hovered = u.id"
+              @blur="hovered = null"
             >
               <span class="absolute inset-y-0 left-0 w-1.5 bg-green"></span>
               <span class="shrink-0 rounded-full ring-2 ring-ink"
@@ -340,7 +447,9 @@ onBeforeUnmount(() => {
               <span class="min-w-0 flex-1 leading-tight">
                 <span class="block text-xs font-semibold text-ink-soft"
                   >{{ u.kind
-                  }}<template v-if="u.bureaux.length"> · {{ bureauxLabel(u.bureaux.length) }}</template></span
+                  }}<template v-if="u.bureaux.length">
+                    · {{ bureauxLabel(u.bureaux.length) }}</template
+                  ></span
                 >
                 <span class="display mt-0.5 block text-[1.15rem] leading-[1.15] sm:text-[1.3rem]">{{
                   u.label

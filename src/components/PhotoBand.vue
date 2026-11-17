@@ -25,7 +25,7 @@ const points = ['Applications', 'Réseaux et sécurité', 'Données des agents d
     <div class="absolute inset-0 -z-10 bg-linear-to-r from-green/55 via-green/20 to-green/5"></div>
 
     <div class="wrap relative flex min-h-104 flex-col justify-center py-16">
-      <p v-split class="display max-w-3xl text-[clamp(1.9rem,3.6vw,3.2rem)]">
+      <p v-reveal class="display max-w-3xl text-[clamp(1.9rem,3.6vw,3.2rem)]">
         Des applications fiables, des réseaux protégés, des agents accompagnés.
       </p>
       <ul v-reveal="'stagger'" class="mt-10 flex flex-wrap gap-3">

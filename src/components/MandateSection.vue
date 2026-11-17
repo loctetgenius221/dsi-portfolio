@@ -32,7 +32,7 @@ const iconOf: Record<string, Component> = {
       </div>
 
       <div v-reveal class="min-w-0">
-        <h2 v-split class="h2">Trois engagements : productivité, qualité et efficience.</h2>
+        <h2 class="h2">Trois engagements : productivité, qualité et efficience.</h2>
         <p class="mt-5 max-w-xl leading-relaxed text-ink-soft">
           Ces engagements fondent l'action de la DSI, telle que la définit le texte d'organisation
           du Ministère.

@@ -149,7 +149,7 @@ onBeforeUnmount(() => {
   >
     <div class="wrap">
       <div v-reveal>
-        <h2 id="realisations-title" v-split class="h2">Les réalisations de la DSI.</h2>
+        <h2 id="realisations-title" class="h2">Les réalisations de la DSI.</h2>
         <p class="mt-4 max-w-2xl leading-relaxed text-ink-soft">
           Une sélection de projets phares portés par la DSI. Ouvrez une fiche pour en lire la
           description complète.

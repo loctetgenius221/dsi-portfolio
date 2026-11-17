@@ -142,7 +142,7 @@
     padding-block: var(--section-y);
   }
   .section-pt-tight {
-    padding-top: var(--section-y-tight);
+    padding-top: var(--section-y);
   }
   .section-pb-tight {
     padding-bottom: var(--section-y-tight);

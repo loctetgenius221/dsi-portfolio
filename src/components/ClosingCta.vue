@@ -22,7 +22,7 @@ const checklist = [
     ></div>
     <div class="wrap relative grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
       <div v-reveal class="lg:col-span-6">
-        <h2 v-split class="display text-[clamp(2rem,3.8vw,3.4rem)]">Le support, premier point d'entrée de vos demandes.</h2>
+        <h2 class="display text-[clamp(2rem,3.8vw,3.4rem)]">Le support, premier point d'entrée de vos demandes.</h2>
         <p class="mt-6 max-w-lg text-[1.2rem] font-medium leading-snug sm:text-[1.3rem]">
           En cas de doute sur l'interlocuteur, la Division des Services numériques et Supports aux Utilisateurs reçoit votre demande et l'oriente vers l'unité compétente.
         </p>

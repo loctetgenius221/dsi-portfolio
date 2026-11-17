@@ -34,7 +34,7 @@ const attributes = [
         <p class="mb-4 inline-block border-2 border-ink bg-white px-3 py-1 text-sm font-bold">
           Données RH de l'État
         </p>
-        <h2 v-split class="display text-[clamp(1.9rem,3.4vw,3.1rem)] text-paper">
+        <h2 class="display text-[clamp(1.9rem,3.4vw,3.1rem)] text-paper">
           Des données RH fiables, protégées et bien gouvernées.
         </h2>
         <p class="mt-6 max-w-2xl text-lg leading-relaxed text-paper">

@@ -31,7 +31,7 @@ const pillars: { title: string; text: string; icon: Component }[] = [
   <section class="border-t-2 border-ink bg-paper-2 section-y">
     <div class="wrap">
       <div v-reveal>
-        <h2 v-split class="h2">Un acteur de la modernisation.</h2>
+        <h2 class="h2">Un acteur de la modernisation.</h2>
         <p class="mt-4 max-w-2xl leading-relaxed text-ink-soft">
           Au-delà de la fourniture de serveurs et de postes de travail, la DSI accompagne la
           modernisation du Ministère et de ses procédures.

@@ -38,7 +38,7 @@ function toggle(i: number) {
     <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-16">
       <div v-reveal class="lg:col-span-4">
         <div class="lg:sticky lg:top-10">
-          <h2 v-split class="h2">Qui contacter pour quoi ?</h2>
+          <h2 class="h2">Qui contacter pour quoi ?</h2>
           <p class="mt-5 max-w-sm leading-relaxed text-ink-soft">
             Sélectionnez votre besoin : la réponse indique l'unité compétente et son responsable.
           </p>

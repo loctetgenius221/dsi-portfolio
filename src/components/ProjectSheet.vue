@@ -41,7 +41,7 @@ const emit = defineEmits<{ close: [] }>()
 
       <div v-if="project.description" class="mt-7 border-t-2 border-ink py-5">
         <p class="text-sm font-bold uppercase tracking-wide text-green-deep">Description</p>
-        <p class="mt-2 leading-relaxed">{{ project.description }}</p>
+        <p class="mt-2 whitespace-pre-line leading-relaxed">{{ project.description }}</p>
       </div>
     </template>
   </SideDrawer>

@@ -426,7 +426,7 @@ export interface Project {
   summary: string | null
   /** Description complète, affichée dans la fiche détaillée */
   description: string | null
-  /** Projet phare : affiché dans le carrousel de l'accueil (5 au maximum) */
+  /** Projet phare : affiché dans le carrousel de l’accueil */
   featured?: boolean
   /** Plateforme officielle accessible au public, s'il y en a une */
   link?: { label: string; url: string }
@@ -443,44 +443,58 @@ const LOREM_DESCRIPTION =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
 
 export const projects: Project[] = [
+  // Projets phares (accueil), dans l'ordre transmis par le client le 17/11/2026.
+  // Descriptions : textes du client. Résumés des cartes : tirés de ces descriptions.
   {
-    // Sources publiques (à faire valider par l'équipe projet) :
-    // osiris.sn/Ce-qui-va-changer-avec-GIRAFE-2.html et osiris.sn (lancement, 2017).
-    name: 'GIRAFE',
-    featured: true,
-    summary: 'Gestion intégrée des ressources humaines de l’État.',
-    description:
-      'Les procédures de gestion du personnel de l’État étaient longues et largement traitées sur papier. GIRAFE est une plateforme de gestion intégrée qui les dématérialise, au service des agents de l’État et des services chargés de la gestion du personnel. Sa deuxième version permet aux agents de suivre l’évolution de leur carrière et de signaler une erreur sur leur situation administrative.',
-  },
-  {
-    // Sources publiques (à faire valider par l'équipe projet) :
-    // fonctionpublique.gouv.sn (rubrique E-services) et fr.allafrica.com/stories/202412110577.html.
     name: 'E-carrière',
     featured: true,
-    summary: 'Services numériques et suivi de carrière pour les agents.',
+    summary: 'Suivi en ligne des actes administratifs liés à la carrière des agents.',
     description:
-      'Pour connaître l’état de leur dossier, de nombreux agents devaient se déplacer jusqu’aux services du Ministère, parfois depuis les régions. E-carrière est une plateforme en ligne qui permet aux agents de l’État de suivre l’avancement des projets d’actes qui les concernent, depuis un ordinateur ou un téléphone.',
+      'E-Carrière est une plateforme numérique destinée aux agents de l’État du Sénégal. Elle leur permet de consulter et de suivre en ligne l’évolution des projets d’actes administratifs liés à leur carrière, sans avoir à se déplacer jusqu’aux services du Ministère. Accessible depuis un ordinateur ou un téléphone, elle contribue à moderniser l’administration, à simplifier les démarches, à réduire les déplacements et à améliorer la transparence ainsi que le suivi des dossiers administratifs.',
     link: { label: 'Accéder à E-carrière', url: 'https://e-carriere.sec.gouv.sn/' },
     logo: '/images/logos/e-carriere.png',
   },
   {
-    name: 'CAP',
+    name: 'Gov’athon 2025',
     featured: true,
-    summary: 'Dématérialisation des procédures des commissions administratives paritaires.',
-    description: null,
-    logo: '/images/logos/cap.png',
+    summary: 'Concours d’innovation pour moderniser l’administration publique.',
+    description:
+      'Le Gov’athon est une initiative du Gouvernement du Sénégal qui vise à mobiliser les étudiants, les jeunes talents, les startups et les citoyens autour de la création de solutions numériques innovantes pour moderniser l’administration publique. À travers un concours d’innovation, il encourage la créativité, l’entrepreneuriat et la collaboration entre l’administration et l’écosystème numérique afin d’améliorer la qualité des services publics, de faciliter les démarches administratives et de répondre aux besoins des citoyens.',
   },
   {
-    name: 'CRCE',
+    name: 'GIRAFE',
     featured: true,
-    summary: 'Numérisation des processus de recrutement des contractuels de l’enseignement.',
-    description: null,
+    summary: 'Gestion des agents de la Fonction publique et de leurs dossiers.',
+    description:
+      'GIRAFe est une plateforme numérique de gestion des agents de la Fonction publique. Elle permet de centraliser les informations administratives et professionnelles des agents de l’État, de faciliter leur recherche à partir de différents critères d’identification et d’assurer le suivi de leurs dossiers ainsi que des projets d’actes administratifs. Elle contribue à la modernisation de la gestion des ressources humaines, à la simplification des procédures administratives et à une meilleure organisation des informations relatives aux carrières des agents.',
   },
   {
     name: 'Pointel FP',
     featured: true,
-    summary: 'Gestion numérique du pointage et des présences.',
+    summary: 'Pointage et suivi du temps de travail du personnel du Ministère.',
+    description:
+      'POINTEL FP est une plateforme numérique de pointage et de gestion des ressources humaines destinée au personnel du Ministère de la Fonction publique, du Travail et de la Réforme du Service public. Elle permet d’assurer le suivi du temps de travail, de faciliter la gestion des ressources humaines et de produire des rapports détaillés. Elle contribue à améliorer le suivi de la présence des agents, à simplifier la gestion administrative et à renforcer le pilotage des activités du personnel.',
+  },
+  {
+    name: 'CRCE',
+    featured: true,
+    summary: 'Reconnaissance, classement et équivalence des diplômes.',
+    description:
+      'La Commission technique de Reconnaissance, de Classement et d’Équivalence (CRCE) est chargée d’examiner les diplômes obtenus à l’issue d’études ou de formations d’une durée égale ou supérieure à six mois. Elle permet d’évaluer leur reconnaissance, leur classement dans les hiérarchies des corps de l’Administration et leur équivalence avec les diplômes de référence. Elle facilite ainsi la prise en compte des qualifications académiques et professionnelles pour l’accès aux emplois publics, aux concours et aux différents corps de l’Administration.\n\nPublic cible : titulaires de diplômes souhaitant faire reconnaître, classer ou obtenir l’équivalence de leurs diplômes dans le cadre de leur parcours professionnel ou de l’accès à la Fonction publique.',
+  },
+  {
+    name: 'PGDE',
+    featured: true,
+    summary: 'Plateforme de gestion des demandes d’emploi.',
+    description:
+      'La Plateforme de Gestion des Demandes d’Emploi (PGDE) est une plateforme numérique mise en place par le Ministère de la Fonction publique pour faciliter les demandes d’intégration à la Fonction publique sénégalaise. Destinée aux citoyens sénégalais, y compris ceux résidant à l’étranger, elle permet de créer un compte, de renseigner ses informations personnelles, ses diplômes, ses formations et ses expériences professionnelles, puis de postuler aux emplois proposés. Elle contribue à simplifier les démarches de candidature, à centraliser les dossiers et à faciliter l’accès à l’emploi public grâce à la dématérialisation des procédures.',
+    link: { label: 'Accéder à la PGDE', url: 'https://emploi.fonctionpublique.sn/' },
+  },
+  {
+    name: 'CAP',
+    summary: 'Dématérialisation des procédures des commissions administratives paritaires.',
     description: null,
+    logo: '/images/logos/cap.png',
   },
   {
     name: 'Projets d’interopérabilité',
@@ -489,11 +503,6 @@ export const projects: Project[] = [
   },
   // Projets ajoutés le 17/11/2026 : textes provisoires (LOREM_*) à remplacer par ceux du client ;
   // logo du Ministère par défaut en attendant les logos des projets
-  {
-    name: 'Gov’athon 2025',
-    summary: LOREM_SUMMARY,
-    description: LOREM_DESCRIPTION,
-  },
   {
     name: 'Gestion des salles et réunions',
     summary: LOREM_SUMMARY,
@@ -510,11 +519,6 @@ export const projects: Project[] = [
     description: LOREM_DESCRIPTION,
   },
   {
-    name: 'PGDE',
-    summary: 'Plateforme de gestion des demandes d’emploi.',
-    description: LOREM_DESCRIPTION,
-  },
-  {
     name: 'Pointel FP MTN',
     summary: LOREM_SUMMARY,
     description: LOREM_DESCRIPTION,
@@ -522,4 +526,4 @@ export const projects: Project[] = [
 ]
 
 /** Projets phares mis en avant sur l'accueil ; la liste complète est sur /realisations */
-export const featuredProjects = projects.filter((p) => p.featured).slice(0, 5)
+export const featuredProjects = projects.filter((p) => p.featured)

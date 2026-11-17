@@ -19,7 +19,7 @@ import SiteFooter from '@/components/SiteFooter.vue'
     <!-- <MarqueeBand /> -->
     <MandateSection />
     <ApproachSection />
-    <PhotoBand />
+    <!-- <PhotoBand /> -->
     <MissionsIndex />
     <DataBand />
     <ProjectsSection />

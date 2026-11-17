@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { animate, inView, stagger } from 'motion'
-import { IconArrowRight, IconChevronDown, IconDownload, IconX } from '@tabler/icons-vue'
-import { adminBureau, divisions, heads, orgPdf, orgStatus, unitDetails } from '@/data/dsi'
+import { IconArrowRight, IconChevronDown, IconX } from '@tabler/icons-vue'
+import { adminBureau, divisions, heads, unitDetails } from '@/data/dsi'
 import Avatar from './Avatar.vue'
 import HandNote from './HandNote.vue'
 import OrgSheet from './OrgSheet.vue'
-import Pending from './Pending.vue'
 import type { Sheet } from './OrgSheet.vue'
 
 // Le vert est la seule couleur de l'organigramme
@@ -183,52 +182,18 @@ onBeforeUnmount(() => {
 <template>
   <section
     id="organisation"
-    class="grid-paper relative pb-10 pt-16 sm:pb-14 sm:pt-24 lg:pb-16 lg:pt-28"
+    class="grid-paper relative section-y section-pt-tight section-pb-tight"
   >
     <div
       class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,white,transparent_20%,transparent_80%,white)]"
     ></div>
     <div class="wrap relative">
-      <div v-reveal class="grid gap-6 lg:grid-cols-12">
-        <div class="lg:col-span-6">
-          <p
-            v-if="orgStatus === 'cible'"
-            class="mb-4 inline-block border-2 border-ink bg-yellow px-3 py-1 text-sm font-bold"
-          >
-            Organisation cible proposée, sous réserve de validation officielle
-          </p>
-          <h2 class="h2">Organigramme de la Direction.</h2>
-        </div>
-        <div class="lg:col-span-4 lg:col-start-9 lg:self-end">
-          <p class="max-w-md leading-relaxed text-ink-soft">
-            Rattachée au Secrétariat général, la DSI compte cinq divisions et un bureau.
-            Sélectionnez une unité pour consulter sa fiche.
-          </p>
-          <!-- Téléchargement : uniquement le PDF validé fourni par le client, avec sa date -->
-          <div class="mt-5">
-            <a
-              v-if="orgPdf.url"
-              :href="orgPdf.url"
-              download
-              class="flex min-h-12 w-full items-center justify-center gap-2 border-2 border-ink bg-white px-5 py-3 font-semibold transition-colors hover:bg-ink hover:text-white sm:inline-flex sm:w-auto"
-              ><IconDownload size="18" stroke="2" aria-hidden="true" />Télécharger l'organigramme
-              (PDF)</a
-            >
-            <span
-              v-else
-              class="flex min-h-12 w-full cursor-not-allowed items-center justify-center gap-2 border-2 border-dashed border-ink/50 px-5 py-3 font-semibold text-ink-soft sm:inline-flex sm:w-auto"
-              aria-disabled="true"
-              ><IconDownload size="18" stroke="2" aria-hidden="true" />Télécharger l'organigramme
-              (PDF)</span
-            >
-            <p class="mt-2 text-sm text-ink-soft">
-              Mis à jour le
-              <template v-if="orgPdf.updatedAt">{{ orgPdf.updatedAt }}</template>
-              <Pending v-else label="date à compléter" />
-              <template v-if="!orgPdf.url"> · version validée à venir</template>
-            </p>
-          </div>
-        </div>
+      <div v-reveal>
+        <h2 v-split class="h2">Organigramme de la Direction.</h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-ink-soft">
+          Rattachée au Secrétariat général, la DSI compte cinq divisions et un bureau. Sélectionnez
+          une unité pour consulter sa fiche.
+        </p>
       </div>
 
       <div ref="chart" class="relative mt-12 sm:mt-16">
@@ -267,9 +232,8 @@ onBeforeUnmount(() => {
                 ><Avatar :person="heads.dsi!" :size="40" :color="GREEN"
               /></span>
               <span class="min-w-0 text-left leading-tight">
-                <span class="block text-[0.95rem] font-semibold">
-                  <template v-if="heads.dsi!.name">{{ heads.dsi!.name }}</template>
-                  <Pending v-else label="Nom à compléter" />
+                <span v-if="heads.dsi!.name" class="block text-[0.95rem] font-semibold">
+                  {{ heads.dsi!.name }}
                 </span>
                 <span class="text-sm">{{ heads.dsi!.title }}</span>
               </span>
@@ -341,9 +305,8 @@ onBeforeUnmount(() => {
                   ><Avatar :person="heads[u.id]!" :size="40" :color="GREEN"
                 /></span>
                 <span class="min-w-0 flex-1 leading-tight">
-                  <span class="block text-[0.85rem] font-semibold">
-                    <template v-if="heads[u.id]!.name">{{ heads[u.id]!.name }}</template>
-                    <Pending v-else label="À compléter" class="whitespace-nowrap" />
+                  <span v-if="heads[u.id]!.name" class="block text-[0.85rem] font-semibold">
+                    {{ heads[u.id]!.name }}
                   </span>
                   <span class="block text-xs text-ink-soft">{{ heads[u.id]!.title }}</span>
                 </span>
@@ -383,7 +346,7 @@ onBeforeUnmount(() => {
                   u.label
                 }}</span>
                 <span class="mt-1 block truncate text-[0.82rem] text-ink-soft">{{
-                  heads[u.id]!.name ?? 'Responsable à compléter'
+                  heads[u.id]!.name ?? heads[u.id]!.title
                 }}</span>
               </span>
               <span
@@ -415,10 +378,6 @@ onBeforeUnmount(() => {
             </div>
           </li>
         </ul>
-
-        <p class="mt-6 text-sm text-ink-soft">
-          Photos des responsables : publiées uniquement avec l’accord des personnes.
-        </p>
       </div>
     </div>
 

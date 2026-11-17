@@ -13,7 +13,7 @@ const iconOf: Record<string, Component> = {
 </script>
 
 <template>
-  <section class="pb-16 pt-10 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
+  <section class="section-y section-pt-tight">
     <div class="wrap grid items-center gap-16 lg:grid-cols-[30rem_minmax(0,1fr)] lg:gap-20">
       <div class="mx-auto w-full max-w-68 sm:max-w-xs lg:mx-0 lg:max-w-none">
         <PhotoFrame
@@ -32,7 +32,7 @@ const iconOf: Record<string, Component> = {
       </div>
 
       <div v-reveal class="min-w-0">
-        <h2 class="h2">Trois engagements : productivité, qualité et efficience.</h2>
+        <h2 v-split class="h2">Trois engagements : productivité, qualité et efficience.</h2>
         <p class="mt-5 max-w-xl leading-relaxed text-ink-soft">
           Ces engagements fondent l'action de la DSI, telle que la définit le texte d'organisation
           du Ministère.

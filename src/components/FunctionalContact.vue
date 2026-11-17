@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Mail, Phone } from 'lucide-vue-next'
 import type { UnitDetails } from '@/data/dsi'
-import Pending from './Pending.vue'
 
 // Contact fonctionnel d'une unité (adresse ou téléphone génériques).
 // Sécurité : jamais de courriel ni de ligne directe nominatifs.
@@ -26,5 +25,4 @@ defineProps<{ contact: UnitDetails['contact'] }>()
       ><Mail :size="16" class="shrink-0" aria-hidden="true" />{{ contact.email }}</a
     >
   </div>
-  <p v-else><Pending label="Contact fonctionnel à compléter" /></p>
 </template>

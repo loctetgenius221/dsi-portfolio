@@ -2,7 +2,6 @@
 import { IconCheck } from '@tabler/icons-vue'
 import { Mail, Phone } from 'lucide-vue-next'
 import { unitDetails } from '@/data/dsi'
-import Pending from './Pending.vue'
 
 // Le support (Division des Services numériques et Supports aux Utilisateurs) est le premier point d'entrée
 // Contact fonctionnel du support (jamais de coordonnées nominatives)
@@ -16,14 +15,14 @@ const checklist = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden border-t-2 border-ink bg-green-deep py-20 text-white sm:py-28">
+  <section class="relative overflow-hidden border-t-2 border-ink bg-green-deep section-y text-white">
     <div
       class="pattern-lozenge pointer-events-none absolute inset-y-0 right-0 hidden w-3/5 [mask-image:linear-gradient(to_right,transparent,black_70%)] lg:block"
       aria-hidden="true"
     ></div>
     <div class="wrap relative grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
       <div v-reveal class="lg:col-span-6">
-        <h2 class="display text-[clamp(2rem,3.8vw,3.4rem)]">Le support, premier point d'entrée de vos demandes.</h2>
+        <h2 v-split class="display text-[clamp(2rem,3.8vw,3.4rem)]">Le support, premier point d'entrée de vos demandes.</h2>
         <p class="mt-6 max-w-lg text-[1.2rem] font-medium leading-snug sm:text-[1.3rem]">
           En cas de doute sur l'interlocuteur, la Division des Services numériques et Supports aux Utilisateurs reçoit votre demande et l'oriente vers l'unité compétente.
         </p>
@@ -44,9 +43,6 @@ const checklist = [
             ><Mail :size="18" class="shrink-0" aria-hidden="true" />Écrire au support</a
           >
         </div>
-        <p v-else class="mt-9">
-          <Pending label="Coordonnées du support à compléter" />
-        </p>
         <p class="mt-5 text-sm text-white">
           Vous connaissez l'unité concernée ?
           <a href="#contact" class="font-semibold underline underline-offset-4 hover:text-yellow">Consulter « Qui contacter pour quoi ? »</a>

@@ -23,17 +23,12 @@ export interface Division {
 
 // ──────────────────────────────────────────────────────────────
 // Retours du client (retour-reçu-du-client.txt). Tout champ à `null`
-// est une information attendue du client : le site affiche « À compléter ».
+// est une information attendue du client : le site masque simplement l'élément.
 // ──────────────────────────────────────────────────────────────
 
-/** Statut de l'organigramme : `cible` affiche « Organisation cible proposée ». */
-// Organigramme validé par le client (14/10/2026) : plus de mention « Organisation cible proposée ».
-export const orgStatus: 'en-vigueur' | 'cible' | null = 'en-vigueur'
-
-/** Organigramme validé à télécharger (PDF fourni par le client) et sa date de mise à jour. */
-export const orgPdf: { url: string | null; updatedAt: string | null } = {
-  url: null,
-  updatedAt: null,
+/** Vrai si l'unité a un contact fonctionnel à afficher */
+export function hasContact(c: UnitDetails['contact'] | undefined): boolean {
+  return !!c && !!(c.email || c.phone)
 }
 
 export interface UnitDetails {
@@ -324,7 +319,7 @@ export const results = [
   {
     title: 'La qualité du service public',
     art: 'network' as ArtKind,
-    text: 'Faire circuler l’information de façon fluide et sécurisée entre les structures du Ministère et les plateformes de l’État, grâce à un système d’information intégré et interopérable.',
+    text: 'Faire circuler l’information de façon fluide et sécurisée entre les structures du Ministère, les administrations partenaires et les plateformes de l’État, grâce à un système d’information intégré et interopérable.',
   },
   {
     title: 'L’efficience de la transformation numérique',
@@ -395,7 +390,7 @@ export const needs: {
 ]
 
 // ──────────────────────────────────────────────────────────────
-// Responsables : noms transmis par le client (14/10/2026). `name: null` = à compléter.
+// Responsables : noms transmis par le client (14/10/2026). `name: null` = nom non affiché.
 // Sécurité : on ne publie ni courriel ni ligne directe nominatifs ; les
 // coordonnées passent par le contact fonctionnel de chaque unité (unitDetails).
 // Photo : uniquement une photo officielle, avec l'accord préalable de la personne
@@ -427,13 +422,12 @@ export const heads: Record<string, Person> = {
 // ──────────────────────────────────────────────────────────────
 export interface Project {
   name: string
-  /** Description courte du projet (docx, § 6) */
+  /** Description courte du projet, affichée sur la carte (docx, § 6) */
   summary: string | null
-  problem: string | null
-  solution: string | null
-  audience: string | null
-  status: string | null
-  impact: string | null
+  /** Description complète, affichée dans la fiche détaillée */
+  description: string | null
+  /** Projet phare : affiché dans le carrousel de l'accueil (5 au maximum) */
+  featured?: boolean
   /** Plateforme officielle accessible au public, s'il y en a une */
   link?: { label: string; url: string }
   /** Logo de l'application ; à défaut, le logo officiel du Ministère est affiché */
@@ -443,53 +437,89 @@ export interface Project {
 /** Logo officiel du Ministère, affiché pour les projets sans logo propre */
 export const MINISTRY_LOGO = '/images/logos/ministere.png'
 
-const emptyProject = { problem: null, solution: null, audience: null, status: null, impact: null }
+// Textes provisoires (faux texte) en attendant les contenus du client
+const LOREM_SUMMARY = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+const LOREM_DESCRIPTION =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
 
 export const projects: Project[] = [
   {
     // Sources publiques (à faire valider par l'équipe projet) :
     // osiris.sn/Ce-qui-va-changer-avec-GIRAFE-2.html et osiris.sn (lancement, 2017).
     name: 'GIRAFE',
+    featured: true,
     summary: 'Gestion intégrée des ressources humaines de l’État.',
-    ...emptyProject,
-    problem: 'Des procédures de gestion du personnel de l’État longues et largement traitées sur papier.',
-    solution:
-      'Une plateforme de gestion intégrée qui dématérialise les procédures de gestion du personnel. Sa deuxième version permet aux agents de suivre l’évolution de leur carrière et de signaler une erreur sur leur situation administrative.',
-    audience: 'Agents de l’État et services chargés de la gestion du personnel.',
+    description:
+      'Les procédures de gestion du personnel de l’État étaient longues et largement traitées sur papier. GIRAFE est une plateforme de gestion intégrée qui les dématérialise, au service des agents de l’État et des services chargés de la gestion du personnel. Sa deuxième version permet aux agents de suivre l’évolution de leur carrière et de signaler une erreur sur leur situation administrative.',
   },
   {
     // Sources publiques (à faire valider par l'équipe projet) :
     // fonctionpublique.gouv.sn (rubrique E-services) et fr.allafrica.com/stories/202412110577.html.
     name: 'E-carrière',
+    featured: true,
     summary: 'Services numériques et suivi de carrière pour les agents.',
-    ...emptyProject,
-    problem:
-      'Pour connaître l’état de leur dossier, de nombreux agents devaient se déplacer jusqu’aux services du Ministère, parfois depuis les régions.',
-    solution:
-      'Une plateforme en ligne qui permet aux agents de suivre l’avancement des projets d’actes qui les concernent, depuis un ordinateur ou un téléphone.',
-    audience: 'Agents de l’État.',
+    description:
+      'Pour connaître l’état de leur dossier, de nombreux agents devaient se déplacer jusqu’aux services du Ministère, parfois depuis les régions. E-carrière est une plateforme en ligne qui permet aux agents de l’État de suivre l’avancement des projets d’actes qui les concernent, depuis un ordinateur ou un téléphone.',
     link: { label: 'Accéder à E-carrière', url: 'https://e-carriere.sec.gouv.sn/' },
     logo: '/images/logos/e-carriere.png',
   },
   {
     name: 'CAP',
+    featured: true,
     summary: 'Dématérialisation des procédures des commissions administratives paritaires.',
-    ...emptyProject,
+    description: null,
     logo: '/images/logos/cap.png',
   },
   {
     name: 'CRCE',
+    featured: true,
     summary: 'Numérisation des processus de recrutement des contractuels de l’enseignement.',
-    ...emptyProject,
+    description: null,
   },
   {
     name: 'Pointel FP',
+    featured: true,
     summary: 'Gestion numérique du pointage et des présences.',
-    ...emptyProject,
+    description: null,
   },
   {
     name: 'Projets d’interopérabilité',
     summary: 'Échanges sécurisés de données entre systèmes et administrations.',
-    ...emptyProject,
+    description: null,
+  },
+  // Projets ajoutés le 17/11/2026 : textes provisoires (LOREM_*) à remplacer par ceux du client ;
+  // logo du Ministère par défaut en attendant les logos des projets
+  {
+    name: 'Gov’athon 2025',
+    summary: LOREM_SUMMARY,
+    description: LOREM_DESCRIPTION,
+  },
+  {
+    name: 'Gestion des salles et réunions',
+    summary: LOREM_SUMMARY,
+    description: LOREM_DESCRIPTION,
+  },
+  {
+    name: 'Audit biométrique et physique du personnel de l’État',
+    summary: LOREM_SUMMARY,
+    description: LOREM_DESCRIPTION,
+  },
+  {
+    name: 'PMO',
+    summary: LOREM_SUMMARY,
+    description: LOREM_DESCRIPTION,
+  },
+  {
+    name: 'PGDE',
+    summary: 'Plateforme de gestion des demandes d’emploi.',
+    description: LOREM_DESCRIPTION,
+  },
+  {
+    name: 'Pointel FP MTN',
+    summary: LOREM_SUMMARY,
+    description: LOREM_DESCRIPTION,
   },
 ]
+
+/** Projets phares mis en avant sur l'accueil ; la liste complète est sur /realisations */
+export const featuredProjects = projects.filter((p) => p.featured).slice(0, 5)

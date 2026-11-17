@@ -17,8 +17,9 @@
       </div>
       <div class="flex flex-col justify-between gap-8 lg:col-span-4 lg:col-start-9">
         <p class="text-sm leading-relaxed text-white/60">
-          La DSI travaille en étroite collaboration avec les structures du Ministère, pour répondre
-          à leurs besoins numériques, et avec SENUM SA pour la numérisation des procédures
+          La DSI travaille en étroite collaboration avec les structures du Ministère, ainsi
+          qu'avec d'autres ministères et structures publiques, pour répondre à leurs besoins
+          numériques, et avec SENUM SA pour la numérisation des procédures
           administratives.
         </p>
         <div class="flex items-center gap-2">

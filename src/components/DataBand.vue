@@ -13,7 +13,7 @@ const attributes = [
 </script>
 
 <template>
-  <section class="relative overflow-hidden border-y-2 border-ink bg-green py-14 sm:py-24">
+  <section class="relative overflow-hidden border-y-2 border-ink bg-green section-y">
     <div class="wrap relative grid items-center gap-12 lg:grid-cols-12">
       <div class="px-2 lg:col-span-5">
         <PhotoFrame
@@ -34,10 +34,10 @@ const attributes = [
         <p class="mb-4 inline-block border-2 border-ink bg-white px-3 py-1 text-sm font-bold">
           Données RH de l'État
         </p>
-        <h2 class="display text-[clamp(1.9rem,3.4vw,3.1rem)] text-paper">
+        <h2 v-split class="display text-[clamp(1.9rem,3.4vw,3.1rem)] text-paper">
           Des données RH fiables, protégées et bien gouvernées.
         </h2>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink">
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-paper">
           La DSI veille à la qualité, à la fiabilité, à la sécurité et à la conformité des données
           RH, en lien avec les directions métiers.
         </p>

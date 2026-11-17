@@ -42,11 +42,11 @@ function toggle(i: number) {
 </script>
 
 <template>
-  <section class="bg-paper-2 py-16 sm:py-24 lg:py-28">
+  <section class="bg-paper-2 section-y">
     <div class="wrap">
       <div class="grid items-center gap-10 lg:grid-cols-12">
         <div v-reveal class="lg:col-span-6">
-          <h2 class="h2">Les missions de la DSI, en cinq domaines.</h2>
+          <h2 v-split class="h2">Les missions de la DSI, en cinq domaines.</h2>
           <p class="mt-5 max-w-md leading-relaxed text-ink-soft">
             Les missions confiées à la DSI par le texte d'organisation du Ministère, regroupées par domaine d'action.
           </p>

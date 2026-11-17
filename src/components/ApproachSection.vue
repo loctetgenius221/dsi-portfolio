@@ -28,18 +28,25 @@ const pillars: { title: string; text: string; icon: Component }[] = [
 </script>
 
 <template>
-  <section class="border-t-2 border-ink bg-paper-2 py-16 sm:py-24">
+  <section class="border-t-2 border-ink bg-paper-2 section-y">
     <div class="wrap">
-      <div v-reveal class="grid gap-6 lg:grid-cols-12">
-        <h2 class="h2 lg:col-span-7">Un partenaire de la modernisation.</h2>
-        <p class="max-w-md leading-relaxed text-ink-soft lg:col-span-4 lg:col-start-9 lg:self-end">
+      <div v-reveal>
+        <h2 v-split class="h2">Un acteur de la modernisation.</h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-ink-soft">
           Au-delà de la fourniture de serveurs et de postes de travail, la DSI accompagne la
           modernisation du Ministère et de ses procédures.
         </p>
       </div>
 
-      <ol v-reveal class="mt-12 grid gap-px border-2 border-ink bg-ink sm:grid-cols-2 xl:grid-cols-4">
-        <li v-for="(p, i) in pillars" :key="p.title" class="group flex flex-col bg-white p-6 sm:p-7">
+      <ol
+        v-reveal
+        class="mt-12 grid gap-px border-2 border-ink bg-ink sm:grid-cols-2 xl:grid-cols-4"
+      >
+        <li
+          v-for="(p, i) in pillars"
+          :key="p.title"
+          class="group flex flex-col bg-white p-6 sm:p-7"
+        >
           <div class="flex items-center justify-between">
             <span
               class="grid h-14 w-14 place-items-center rounded-full border-2 border-green bg-white text-green transition-colors duration-300 group-hover:bg-green group-hover:text-white"

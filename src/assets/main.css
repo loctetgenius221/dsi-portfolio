@@ -20,6 +20,12 @@
 }
 
 @layer base {
+  :root {
+    /* Espace vertical des sections (voir .section-y) : réduire ces valeurs raccourcit la page.
+       clamp(mobile, selon la largeur, grand écran) */
+    --section-y: clamp(2.75rem, 5vw, 4.5rem);
+    --section-y-tight: clamp(1.75rem, 3vw, 2.5rem);
+  }
   html {
     scroll-behavior: smooth;
     /* Réserve la place de la barre de défilement : pas de décalage quand le volet bloque le défilement */
@@ -128,6 +134,31 @@
   .wrap {
     margin-inline: auto;
     width: min(100% - 3rem, 82rem);
+  }
+  /* Espacement vertical des sections : à régler ici pour toute la page.
+     --section-y : haut et bas d'une section ; --section-y-tight : côté resserré
+     (après le hero, avant « Qui contacter »). */
+  .section-y {
+    padding-block: var(--section-y);
+  }
+  .section-pt-tight {
+    padding-top: var(--section-y-tight);
+  }
+  .section-pb-tight {
+    padding-bottom: var(--section-y-tight);
+  }
+  /* v-split : chaque mot monte derrière un masque (voir src/directives/split.ts) */
+  .split-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    /* laisse la place aux jambages (g, p, ç) sans décaler la ligne */
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+  .split-word {
+    display: inline-block;
+    will-change: transform;
   }
   .grid-paper {
     background-image:

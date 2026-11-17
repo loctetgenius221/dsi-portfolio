@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { hasContact } from '@/data/dsi'
 import type { Person, UnitDetails } from '@/data/dsi'
 import Avatar from './Avatar.vue'
-import Pending from './Pending.vue'
 import FunctionalContact from './FunctionalContact.vue'
 
 export interface Sheet {
@@ -41,25 +41,23 @@ defineProps<{ sheet: Sheet }>()
         </section>
 
         <!-- 2. Attributions (missions de la DSI, périmètre fonctionnel des unités) -->
-        <section>
+        <section v-if="sheet.details.responsibilities">
           <h3 class="text-sm font-bold uppercase tracking-wide text-green-deep">
             Principales attributions
           </h3>
-          <ul v-if="sheet.details.responsibilities" class="mt-2 list-disc space-y-1 pl-5">
+          <ul class="mt-2 list-disc space-y-1 pl-5">
             <li v-for="r in sheet.details.responsibilities" :key="r">{{ r }}</li>
           </ul>
-          <p v-else class="mt-2"><Pending /></p>
         </section>
 
         <!-- 4. Services rendus -->
-        <section>
+        <section v-if="sheet.details.services">
           <h3 class="text-sm font-bold uppercase tracking-wide text-green-deep">
             Services rendus aux utilisateurs
           </h3>
-          <ul v-if="sheet.details.services" class="mt-2 list-disc space-y-1 pl-5">
+          <ul class="mt-2 list-disc space-y-1 pl-5">
             <li v-for="r in sheet.details.services" :key="r">{{ r }}</li>
           </ul>
-          <p v-else class="mt-2"><Pending /></p>
         </section>
       </div>
 
@@ -104,9 +102,8 @@ defineProps<{ sheet: Sheet }>()
               ><Avatar :person="sheet.person" :size="64" :color="sheet.color"
             /></span>
             <div class="min-w-0 leading-tight">
-              <p class="display text-[1.3rem] sm:text-[1.45rem]">
-                <template v-if="sheet.person.name">{{ sheet.person.name }}</template>
-                <Pending v-else label="Nom à compléter" />
+              <p v-if="sheet.person.name" class="display text-[1.3rem] sm:text-[1.45rem]">
+                {{ sheet.person.name }}
               </p>
               <p class="mt-1 text-ink-soft">{{ sheet.person.title }}</p>
             </div>
@@ -114,7 +111,7 @@ defineProps<{ sheet: Sheet }>()
         </section>
 
         <!-- 5. Contact fonctionnel (adresse ou téléphone générique de l'unité) -->
-        <section>
+        <section v-if="hasContact(sheet.details.contact)">
           <h3 class="text-sm font-bold uppercase tracking-wide text-green-deep">
             Contact fonctionnel
           </h3>

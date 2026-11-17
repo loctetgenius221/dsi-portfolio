@@ -12,10 +12,9 @@ import {
   IconShieldCheck,
   IconTool,
 } from '@tabler/icons-vue'
-import { heads, needs, unitDetails } from '@/data/dsi'
+import { hasContact, heads, needs, unitDetails } from '@/data/dsi'
 import Avatar from './Avatar.vue'
 import FunctionalContact from './FunctionalContact.vue'
-import Pending from './Pending.vue'
 
 // Icône Tabler de chaque situation (même famille que les missions)
 const iconOf: Record<string, Component> = {
@@ -35,11 +34,11 @@ function toggle(i: number) {
 </script>
 
 <template>
-  <section id="contact" class="pb-16 pt-10 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
+  <section id="contact" class="section-y section-pt-tight">
     <div class="wrap grid gap-10 lg:grid-cols-12 lg:gap-16">
       <div v-reveal class="lg:col-span-4">
         <div class="lg:sticky lg:top-10">
-          <h2 class="h2">Qui contacter pour quoi ?</h2>
+          <h2 v-split class="h2">Qui contacter pour quoi ?</h2>
           <p class="mt-5 max-w-sm leading-relaxed text-ink-soft">
             Sélectionnez votre besoin : la réponse indique l'unité compétente et son responsable.
           </p>
@@ -101,14 +100,13 @@ function toggle(i: number) {
                         <Avatar :person="heads[n.unitId]!" :size="52" color="#009454" />
                       </span>
                       <div class="min-w-0 leading-tight">
-                        <p class="font-bold">
-                          <template v-if="heads[n.unitId]!.name">{{ heads[n.unitId]!.name }}</template>
-                          <Pending v-else label="Nom à compléter" />
+                        <p v-if="heads[n.unitId]!.name" class="font-bold">
+                          {{ heads[n.unitId]!.name }}
                         </p>
                         <p class="text-sm text-ink-soft">{{ heads[n.unitId]!.title }}</p>
                       </div>
                     </div>
-                    <div class="mt-4">
+                    <div v-if="hasContact(unitDetails[n.unitId]?.contact)" class="mt-4">
                       <FunctionalContact :contact="unitDetails[n.unitId]?.contact ?? null" />
                     </div>
                   </div>
@@ -117,9 +115,6 @@ function toggle(i: number) {
             </div>
           </li>
         </ul>
-        <p class="mt-6 text-sm text-ink-soft">
-          Les coordonnées publiées sont celles des unités, jamais des personnes.
-        </p>
       </div>
     </div>
   </section>
